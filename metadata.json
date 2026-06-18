@@ -1,0 +1,6 @@
+{
+  "name": "Finoraax",
+  "description": "Privacy-first AI-powered personal finance management system with subscription leak detection, cash flow calendar, and custom advisor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
