@@ -1,0 +1,14 @@
+{
+  "name": "finoraax-web",
+  "version": "1.0.0",
+  "description": "Privacy-First Wealth Intelligence",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite --port 3000 --open",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

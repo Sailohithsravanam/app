@@ -1,0 +1,5020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finoraax - Privacy-First Wealth Intelligence</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+:root {
+    /* Color Tokens from Finoraax Android Theme */
+    --color-sage-bg: #13171b;
+    --color-obsidian-bg: #090a0c;
+    --color-obsidian-card: #1c2125;
+    --color-sage-white-card: #24292e;
+    --color-sage-primary-text: #f0f3f5;
+    --color-sage-secondary-text: #8fa2ad;
+    --color-warm-text: #faf8f5;
+    --color-muted-text: #708090;
+    
+    --color-sage-green: #4caf50;
+    --color-jade-green: #2e7d32;
+    --color-soft-sage: #a1c1a1;
+    --color-alert-red: #ef5350;
+    --color-ruby-red: #b71c1c;
+    
+    --color-gold-primary: #e5c158;
+    --color-gold-secondary: #c5a059;
+    --color-yellow-accent: #ffb300;
+    
+    /* Layout Tokens */
+    --sidebar-width: 260px;
+    --header-height: 70px;
+    --border-radius-lg: 20px;
+    --border-radius-md: 12px;
+    --border-radius-sm: 8px;
+    
+    /* Shadow */
+    --shadow-premium: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --border-glass: 1px solid rgba(229, 193, 88, 0.15);
+    --border-glass-green: 1px solid rgba(76, 175, 80, 0.2);
+    --border-glass-red: 1px solid rgba(239, 83, 80, 0.2);
+}
+
+/* Global resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-sage-bg);
+    color: var(--color-sage-primary-text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
+    font-family: 'Outfit', sans-serif;
+    color: var(--color-warm-text);
+}
+
+/* Utility styles */
+.font-bold { font-weight: 700; }
+.font-sm { font-size: 0.85rem; }
+.text-green { color: var(--color-sage-green) !important; }
+.text-red { color: var(--color-alert-red) !important; }
+.text-gold { color: var(--color-gold-primary) !important; }
+.text-muted { color: var(--color-sage-secondary-text) !important; }
+.text-warm { color: var(--color-warm-text) !important; }
+.margin-top-12 { margin-top: 12px; }
+.margin-top-24 { margin-top: 24px; }
+.margin-top-32 { margin-top: 32px; }
+.margin-bottom-16 { margin-bottom: 16px; }
+.margin-vertical-16 { margin-top: 16px; margin-bottom: 16px; }
+.margin-vertical-24 { margin-top: 24px; margin-bottom: 24px; }
+.margin-left-8 { margin-left: 8px; }
+.margin-left-16 { margin-left: 16px; }
+.width-full { width: 100%; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-center { display: flex; align-items: center; }
+.gap-8 { gap: 8px; }
+.gap-12 { gap: 12px; }
+
+/* Screens & Animation definitions */
+.screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    height: 100vh;
+}
+
+.screen.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* Splash screen */
+#splash-screen {
+    background: linear-gradient(135deg, var(--color-jade-green) 0%, var(--color-obsidian-bg) 100%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+.logo-box {
+    width: 96px;
+    height: 96px;
+    background-color: var(--color-warm-text);
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 24px auto;
+    box-shadow: var(--shadow-premium);
+}
+
+.icon-logo {
+    width: 54px;
+    height: 54px;
+    color: var(--color-jade-green);
+}
+
+.splash-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.splash-subtitle {
+    color: var(--color-soft-sage);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.95; }
+}
+.animate-pulse {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* Onboarding screens */
+#onboarding-screen {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.onboarding-slide {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
+    width: 100%;
+    height: 80vh;
+    animation: slideIn 0.5s ease;
+}
+
+.onboarding-slide.active {
+    display: flex;
+}
+
+.onboarding-content {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 24px auto;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.icon-circle svg {
+    width: 44px;
+    height: 44px;
+}
+
+.icon-circle.text-green {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--color-sage-green);
+}
+
+.icon-circle.text-yellow {
+    background-color: rgba(255, 179, 0, 0.1);
+    color: var(--color-yellow-accent);
+}
+
+.onboarding-slide h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.onboarding-slide p {
+    color: var(--color-sage-secondary-text);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Buttons */
+.btn {
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    outline: none;
+}
+
+.btn-primary {
+    background-color: var(--color-jade-green);
+    color: var(--color-warm-text);
+    padding: 14px 28px;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--color-sage-green);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: var(--color-obsidian-card);
+    color: var(--color-sage-primary-text);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 24px;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-warm-text);
+}
+
+.btn-large {
+    width: 100%;
+    height: 56px;
+    font-size: 1.1rem;
+    border-radius: var(--border-radius-lg);
+}
+
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: var(--border-radius-sm);
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-sage-secondary-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-warm-text);
+}
+
+.btn-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-icon-only {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-sage-green);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.btn-link:hover {
+    color: var(--color-soft-sage);
+    text-decoration: underline;
+}
+
+.border-red {
+    border-color: rgba(239, 83, 80, 0.4) !important;
+}
+
+/* Authentication Screen */
+#auth-screen {
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background-color: var(--color-sage-bg);
+}
+
+.auth-card {
+    display: none;
+    flex-direction: column;
+    max-width: 420px;
+    width: 100%;
+    background-color: var(--color-obsidian-card);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: var(--shadow-premium);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: fadeIn 0.4s ease;
+}
+
+.auth-card.active {
+    display: flex;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.auth-header .small-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+}
+
+.auth-header h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.auth-header p {
+    color: var(--color-sage-secondary-text);
+    font-size: 0.95rem;
+}
+
+/* Forms */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-sage-secondary-text);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.label-bold {
+    font-weight: 700 !important;
+    color: var(--color-warm-text) !important;
+}
+
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--color-sage-secondary-text);
+    pointer-events: none;
+}
+
+.form-input {
+    width: 100%;
+    height: 48px;
+    background-color: var(--color-obsidian-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-md);
+    color: var(--color-warm-text);
+    padding: 0 16px 0 44px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-sage-green);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+}
+
+.form-input::placeholder {
+    color: var(--color-muted-text);
+}
+
+.form-textarea {
+    width: 100%;
+    background-color: var(--color-obsidian-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-md);
+    color: var(--color-warm-text);
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    transition: all 0.2s ease;
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--color-sage-green);
+}
+
+.form-select {
+    width: 100%;
+    height: 48px;
+    background-color: var(--color-obsidian-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-md);
+    color: var(--color-warm-text);
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-select:focus {
+    border-color: var(--color-sage-green);
+}
+
+.form-checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--color-obsidian-bg);
+    cursor: pointer;
+    accent-color: var(--color-sage-green);
+}
+
+.radio-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem !important;
+    text-transform: none !important;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    accent-color: var(--color-sage-green);
+}
+
+.help-text {
+    font-size: 0.8rem;
+    margin-top: 6px;
+}
+
+.error-msg {
+    color: var(--color-alert-red);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-footer a {
+    color: var(--color-sage-green);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* App Container Layout */
+#app-container {
+    display: none;
+    height: 100vh;
+    width: 100%;
+}
+
+#app-container.active {
+    display: flex;
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--color-obsidian-bg);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-left: 12px;
+}
+
+.icon-brand {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.brand-text {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    color: var(--color-sage-secondary-text);
+    padding: 12px 16px;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: var(--color-warm-text);
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.nav-item:hover .nav-icon {
+    transform: translateX(2px);
+}
+
+.nav-item.active {
+    background-color: rgba(229, 193, 88, 0.08);
+    color: var(--color-gold-primary);
+    border: 1px solid rgba(229, 193, 88, 0.15);
+}
+
+.nav-item.active .nav-icon {
+    color: var(--color-gold-primary);
+}
+
+/* Main content workspace */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--color-sage-bg);
+}
+
+.app-header {
+    height: var(--header-height);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    background-color: var(--color-sage-bg);
+}
+
+.header-mobile-branding {
+    display: none;
+    align-items: center;
+}
+
+.status-indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-sage-green);
+    display: inline-block;
+    margin-right: 8px;
+    box-shadow: 0 0 8px var(--color-sage-green);
+}
+
+.status-indicator-text {
+    font-size: 0.75rem;
+    letter-spacing: 1.2px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Dropdown styling */
+.dropdown {
+    position: relative;
+}
+
+.bell-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-alert-red);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    width: 300px;
+    background-color: var(--color-obsidian-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-premium);
+    z-index: 100;
+    padding: 16px 0;
+    animation: fadeIn 0.2s ease;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px 12px 16px;
+}
+
+.dropdown-header h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 0;
+}
+
+.dropdown-list {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.dropdown-item h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-warm-text);
+    margin-bottom: 4px;
+}
+
+.dropdown-item p {
+    font-size: 0.8rem;
+    color: var(--color-sage-secondary-text);
+    line-height: 1.4;
+}
+
+.dropdown-empty {
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--color-muted-text);
+    font-size: 0.85rem;
+}
+
+/* Scroll viewport content */
+.scroll-viewport {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+}
+
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+/* Cards & Glassmorphism */
+.glass-card {
+    background: rgba(30, 36, 43, 0.6);
+    border: var(--border-glass);
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-premium);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+    border-color: rgba(229, 193, 88, 0.3);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Tab 0 Welcome Card specific styling */
+.welcome-card {
+    background: linear-gradient(135deg, var(--color-obsidian-card) 0%, #1e2226 50%, var(--color-obsidian-card) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.welcome-title {
+    font-size: 1.8rem;
+    margin-top: 8px;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.badge-gold {
+    background-color: rgba(229, 193, 88, 0.15);
+    color: var(--color-gold-primary);
+    border: 1px solid rgba(229, 193, 88, 0.3);
+}
+
+.vault-dial {
+    width: 64px;
+    height: 64px;
+}
+
+.vault-dial-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.welcome-text {
+    font-size: 0.95rem;
+    max-width: 80%;
+    margin-bottom: 24px;
+}
+
+.welcome-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Smartchip CSS */
+.smart-chip {
+    width: 44px;
+    height: 32px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #e5c158 0%, #c5a059 50%, #f3e5ab 100%);
+    border: 1px solid var(--color-gold-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.chip-line {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+}
+
+.chip-line.horizontal {
+    width: 100%;
+    height: 1px;
+    top: 50%;
+}
+
+.chip-line.vertical {
+    width: 1px;
+    height: 100%;
+}
+
+.chip-line.vertical-1 {
+    left: 33%;
+}
+
+.chip-line.vertical-2 {
+    left: 66%;
+}
+
+.welcome-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 24px;
+}
+
+.backing-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.8px;
+}
+
+.backing-amount {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+.currency-tag {
+    background-color: rgba(229, 193, 88, 0.15);
+    border: 1px solid rgba(229, 193, 88, 0.3);
+    color: var(--color-gold-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 12px;
+}
+
+/* Stats Row */
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    padding: 20px;
+    margin-bottom: 0;
+}
+
+.stat-card.inflow {
+    border-color: rgba(76, 175, 80, 0.15);
+    background: linear-gradient(180deg, var(--color-obsidian-card) 0%, #091f14 100%);
+}
+
+.stat-card.outflow {
+    border-color: rgba(239, 83, 80, 0.15);
+    background: linear-gradient(180deg, var(--color-obsidian-card) 0%, #1f090c 100%);
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.stat-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.stat-amount {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+/* Flex layout card */
+.flex-between-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Circular health meter specific */
+.circular-progress-wrapper {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+.circular-progress {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.circle-fg {
+    transition: stroke-dasharray 0.35s;
+    transform-origin: 50% 50%;
+}
+
+.progress-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+}
+
+/* Large score indicator */
+.large-progress {
+    width: 80px;
+    height: 80px;
+}
+
+.large-progress .progress-percentage {
+    font-size: 1rem;
+}
+
+.score-large {
+    font-size: 2.8rem;
+    font-weight: 800;
+}
+
+.leak-score-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+}
+
+/* Emergency fund custom runway progress bar */
+.emergency-tracker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.runway-container {
+    width: 100%;
+    height: 16px;
+    background-color: var(--color-obsidian-bg);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.runway-track-ticks {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    align-items: center;
+    justify-content: space-around;
+    pointer-events: none;
+}
+
+/* Dash slots styling */
+.runway-dash {
+    width: 8px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.runway-fill-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-gold-secondary), var(--color-gold-primary));
+    width: 0%;
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.runway-fill-ticks {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.runway-fill-dash {
+    width: 8px;
+    height: 2px;
+    background-color: var(--color-obsidian-bg);
+}
+
+.runway-stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Quick Actions Box */
+.actions-box-card {
+    background: rgba(161, 193, 161, 0.1);
+    padding: 14px;
+}
+
+.actions-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.actions-row .btn {
+    height: 44px;
+}
+
+.btn-icon-svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+/* Ledger List Home items */
+.ledger-records-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ledger-record-item {
+    background-color: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: var(--border-radius-md);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.ledger-record-item:hover {
+    background-color: rgba(255,255,255,0.04);
+}
+
+.record-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.record-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.record-icon-wrapper.inflow {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: var(--color-sage-green);
+}
+
+.record-icon-wrapper.outflow {
+    background-color: rgba(239, 83, 80, 0.15);
+    color: var(--color-alert-red);
+}
+
+.record-icon-wrapper svg {
+    width: 18px;
+    height: 18px;
+}
+
+.record-details h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-warm-text);
+}
+
+.record-details p {
+    font-size: 0.78rem;
+    color: var(--color-sage-secondary-text);
+    margin-top: 2px;
+}
+
+.record-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+/* Tab 1: Ledger specific styling */
+.statement-importer-card {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.importer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.importer-content-area {
+    animation: fadeIn 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.import-msg {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.ledger-workspace {
+    margin-top: 24px;
+}
+
+.ledger-controls {
+    margin-bottom: 16px;
+}
+
+.ledger-table-container {
+    background-color: var(--color-obsidian-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-lg);
+    overflow-x: auto;
+    box-shadow: var(--shadow-premium);
+}
+
+.ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.ledger-table th, .ledger-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 0.9rem;
+}
+
+.ledger-table th {
+    font-family: 'Outfit', sans-serif;
+    color: var(--color-sage-secondary-text);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.ledger-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.ledger-table tbody tr:hover {
+    background-color: rgba(255,255,255,0.01);
+}
+
+.ledger-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.empty-state-msg {
+    padding: 40px;
+    text-align: center;
+    color: var(--color-muted-text);
+    font-size: 0.9rem;
+}
+
+/* Tab 2: Budgets UI */
+.budgets-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.budget-progress-card {
+    background: rgba(30, 36, 43, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-premium);
+}
+
+.budget-progress-card.overspent {
+    border-color: rgba(239, 83, 80, 0.3);
+    background: linear-gradient(180deg, var(--color-obsidian-card) 0%, rgba(239, 83, 80, 0.05) 100%);
+}
+
+.budget-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.budget-cat-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-warm-text);
+}
+
+.budget-limit-spent {
+    font-size: 0.85rem;
+    color: var(--color-sage-secondary-text);
+}
+
+.budget-bar-outer {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-obsidian-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.budget-bar-inner {
+    height: 100%;
+    border-radius: 4px;
+    background-color: var(--color-sage-green);
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
+}
+
+.budget-bar-inner.warning {
+    background-color: var(--color-yellow-accent);
+}
+
+.budget-bar-inner.danger {
+    background-color: var(--color-alert-red);
+}
+
+/* Savings goals cards */
+.goals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.goal-card {
+    background: rgba(30, 36, 43, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-premium);
+}
+
+.goal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.goal-title-box h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-warm-text);
+}
+
+.goal-card-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.goal-bar-outer {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-obsidian-bg);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.goal-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-gold-secondary), var(--color-gold-primary));
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.goal-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+/* Tab 3: Calendar & Bills */
+.calendar-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.calendar-card {
+    padding: 24px;
+    margin-bottom: 0;
+}
+
+.calendar-header {
+    margin-bottom: 20px;
+}
+
+.grid-7 {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    text-align: center;
+}
+
+.calendar-days-header {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-sage-secondary-text);
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.calendar-grid-cell {
+    aspect-ratio: 1.2;
+    background-color: rgba(255,255,255,0.01);
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-sage-secondary-text);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.calendar-grid-cell.active-month {
+    color: var(--color-warm-text);
+}
+
+.calendar-grid-cell:hover {
+    background-color: rgba(255,255,255,0.04);
+}
+
+.calendar-grid-cell.today {
+    border: 1.5px solid var(--color-gold-primary);
+    background-color: rgba(229, 193, 88, 0.03);
+}
+
+.calendar-dots {
+    display: flex;
+    gap: 3px;
+    margin-top: 4px;
+}
+
+.dot-indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+}
+
+.dot-indicator.inflow {
+    background-color: var(--color-sage-green);
+    box-shadow: 0 0 4px var(--color-sage-green);
+}
+
+.dot-indicator.outflow {
+    background-color: var(--color-alert-red);
+    box-shadow: 0 0 4px var(--color-alert-red);
+}
+
+.dot-indicator.bill {
+    background-color: var(--color-gold-primary);
+    box-shadow: 0 0 4px var(--color-gold-primary);
+}
+
+/* Bills Tracker Sidebar styling */
+.bills-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.bills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bill-item-card {
+    background-color: var(--color-obsidian-card);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s;
+}
+
+.bill-item-card.unpaid {
+    border-left: 3px solid var(--color-gold-primary);
+}
+
+.bill-item-card.paid {
+    border-left: 3px solid var(--color-sage-green);
+    opacity: 0.7;
+}
+
+.bill-details h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-warm-text);
+}
+
+.bill-details p {
+    font-size: 0.78rem;
+    color: var(--color-sage-secondary-text);
+    margin-top: 3px;
+}
+
+.bill-action-col {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.bill-amount {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-warm-text);
+}
+
+/* Tab 4: Sub Leaks styling */
+.subscription-leaks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sub-card {
+    background: rgba(30, 36, 43, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-premium);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.sub-card.leaking {
+    border-color: rgba(239, 83, 80, 0.35);
+    background: linear-gradient(135deg, var(--color-obsidian-card) 0%, rgba(239, 83, 80, 0.05) 100%);
+}
+
+.sub-card.cancelled {
+    opacity: 0.5;
+    border-color: rgba(255,255,255,0.02);
+}
+
+.sub-info-col {
+    flex: 1;
+}
+
+.sub-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.sub-title-row h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-warm-text);
+}
+
+.leak-badge {
+    background-color: rgba(239, 83, 80, 0.15);
+    color: var(--color-alert-red);
+    border: 1px solid rgba(239, 83, 80, 0.3);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.leak-meta-desc {
+    font-size: 0.85rem;
+    color: var(--color-sage-secondary-text);
+    margin-bottom: 10px;
+}
+
+.leak-suggestion-box {
+    background-color: rgba(0,0,0,0.15);
+    border-radius: var(--border-radius-sm);
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: var(--color-soft-sage);
+    border-left: 2px solid var(--color-sage-green);
+    max-width: 80%;
+}
+
+.sub-card.leaking .leak-suggestion-box {
+    border-left-color: var(--color-alert-red);
+    color: var(--color-sage-secondary-text);
+}
+
+.sub-action-col {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    min-width: 140px;
+}
+
+.sub-cost-text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-warm-text);
+}
+
+.sub-buttons-row {
+    display: flex;
+    gap: 8px;
+}
+
+/* Tab 5: AI Advisor Layout */
+.advisor-layout {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 24px;
+    height: calc(100vh - var(--header-height) - 64px);
+}
+
+.chat-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.chat-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.message-bubble {
+    max-width: 75%;
+    padding: 14px 18px;
+    border-radius: var(--border-radius-lg);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    animation: fadeIn 0.25s ease;
+}
+
+.message-bubble.user {
+    background-color: var(--color-jade-green);
+    color: var(--color-warm-text);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+.message-bubble.advisor {
+    background-color: var(--color-obsidian-card);
+    color: var(--color-sage-primary-text);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+/* Markdown parsing representations inside chat */
+.message-bubble p {
+    margin-bottom: 8px;
+}
+.message-bubble p:last-child {
+    margin-bottom: 0;
+}
+.message-bubble ul, .message-bubble ol {
+    margin-left: 20px;
+    margin-bottom: 8px;
+}
+
+.chat-typing-indicator {
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+}
+
+.chat-typing-indicator .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-sage-secondary-text);
+    margin-right: 4px;
+    animation: typingBounce 1.4s infinite ease-in-out both;
+}
+
+.chat-typing-indicator .dot:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing-indicator .dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}
+
+.chat-input-row {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    gap: 12px;
+}
+
+.chat-input-row input {
+    flex: 1;
+}
+
+.send-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.advisor-recommendations {
+    display: flex;
+    flex-direction: column;
+}
+
+.recommendation-card {
+    padding: 24px;
+    height: 100%;
+}
+
+.recommendation-content {
+    line-height: 1.6;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.recommendation-content p {
+    margin-bottom: 12px;
+}
+
+.recommendation-content ul {
+    margin-left: 20px;
+    margin-bottom: 12px;
+}
+
+.recommendation-content li {
+    margin-bottom: 6px;
+}
+
+/* Tab 6: Vault and settings layouts */
+.vault-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.investments-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.investments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.invest-card {
+    background-color: var(--color-obsidian-card);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.invest-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.invest-details h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-warm-text);
+}
+
+.invest-details p {
+    font-size: 0.8rem;
+    color: var(--color-sage-secondary-text);
+    margin-top: 4px;
+}
+
+.invest-type-badge {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.invest-valuations {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.invest-val-primary {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-warm-text);
+}
+
+.invest-val-change {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.invest-card-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.avatar-large {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-large svg {
+    width: 36px;
+    height: 36px;
+}
+
+.settings-card {
+    padding: 28px;
+}
+
+/* Modal Overlay & Card layout */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-card {
+    background-color: var(--color-obsidian-card);
+    border: var(--border-glass);
+    border-radius: var(--border-radius-lg);
+    max-width: 500px;
+    width: 100%;
+    box-shadow: var(--shadow-premium);
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-overlay.active .modal-card {
+    transform: translateY(0);
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--color-sage-secondary-text);
+}
+
+.btn-close:hover {
+    color: var(--color-warm-text);
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* RESPONSIVE DESIGN (MOBILE & TABLET ADJUSTMENTS) */
+@media (max-width: 992px) {
+    .calendar-layout, .advisor-layout, .vault-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .advisor-layout {
+        height: auto;
+    }
+    
+    .chat-card {
+        height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    #app-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 500;
+    }
+    
+    .sidebar-brand {
+        display: none;
+    }
+    
+    .sidebar-nav {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 0;
+    }
+    
+    .nav-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.65rem;
+        padding: 10px 0;
+        border-radius: 0;
+        background: none !important;
+        border: none !important;
+    }
+    
+    .nav-item.active {
+        color: var(--color-gold-primary);
+    }
+    
+    .nav-item span {
+        display: block;
+    }
+    
+    .main-content {
+        height: calc(100vh - 60px); /* Adjust for bottom navigation height */
+    }
+    
+    .scroll-viewport {
+        padding: 16px;
+        padding-bottom: 80px; /* Cushion space for the fixed nav bar */
+    }
+    
+    .app-header {
+        padding: 0 16px;
+    }
+    
+    .header-mobile-branding {
+        display: flex;
+    }
+    
+    .header-status {
+        display: none;
+    }
+    
+    .welcome-card-header {
+        flex-direction: column;
+    }
+    
+    .vault-dial {
+        margin-top: 12px;
+        align-self: flex-end;
+    }
+    
+    .welcome-text {
+        max-width: 100%;
+    }
+    
+    .stats-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .budgets-grid, .goals-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .sub-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .sub-action-col {
+        width: 100%;
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+</style>
+</head>
+<body class="dark-theme">
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-content">
+            <div class="logo-box animate-pulse">
+                <svg class="icon-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <h1 class="splash-title">Finoraax</h1>
+            <p class="splash-subtitle">Privacy-First Wealth Intelligence</p>
+        </div>
+    </div>
+
+    <!-- ONBOARDING SCREENS -->
+    <div id="onboarding-screen" class="screen">
+        <!-- Slide 1: Privacy -->
+        <div class="onboarding-slide active" id="slide-privacy">
+            <div class="onboarding-content">
+                <div class="icon-circle text-green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <h2>100% Privacy First</h2>
+                <p>Traditional financial trackers sell your private logs and bank passwords. Finoraax is engineered with a secure, privacy-first infrastructure. Your transaction logs, budgets, and investments are processed with real-time online capability, with state-of-the-art encryption guarding your experience.</p>
+            </div>
+            <button class="btn btn-primary btn-large" id="btn-privacy-next">I Value My Privacy</button>
+        </div>
+
+        <!-- Slide 2: Leak Detector -->
+        <div class="onboarding-slide" id="slide-leak">
+            <div class="onboarding-content">
+                <div class="icon-circle text-yellow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <h2>Subscription Leak Detector</h2>
+                <p>Forgotten web services, gym plans, and expired trials cost the average person hundreds of dollars in automated leaks.<br><br>Finoraax automatically reviews recurring bank charges with local processing, scores your subscription health, and prompts you to decommission toxic autopays immediately.</p>
+            </div>
+            <button class="btn btn-primary btn-large" id="btn-leak-next">Resolve Sub Leaks</button>
+        </div>
+
+        <!-- Slide 3: Advisor -->
+        <div class="onboarding-slide" id="slide-advisor">
+            <div class="onboarding-content">
+                <div class="icon-circle text-green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <h2>Smart Financial Advisor</h2>
+                <p>Finoraax embeds a secure Gemini AI advisor that helps you navigate daily questions without logging out.<br><br>From spending audits and custom emergency plans to micro-budget caps, receive premium coaching entirely tailored to your actual financial goals.</p>
+            </div>
+            <button class="btn btn-primary btn-large" id="btn-advisor-next">Unlock Active AI Advisor</button>
+        </div>
+    </div>
+
+    <!-- VAULT LOGIN / REGISTER SCREEN -->
+    <div id="auth-screen" class="screen">
+        <!-- Login Card -->
+        <div class="auth-card active" id="auth-card-login">
+            <div class="auth-header">
+                <div class="icon-circle text-green small-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <h2>Decrypt Vault</h2>
+                <p id="vault-status-text">Unlock your encrypted local database</p>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <div class="input-with-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="input-icon">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <input type="email" id="login-email" placeholder="email@example.com" class="form-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Security PIN (4 digits)</label>
+                <div class="input-with-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="input-icon">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <input type="password" id="login-pin" maxlength="4" placeholder="••••" class="form-input" inputmode="numeric">
+                </div>
+            </div>
+            <div id="login-error" class="error-msg"></div>
+            <button class="btn btn-primary" id="btn-login-submit">Decrypt Vault</button>
+            <div class="auth-footer">
+                <a href="#" id="link-go-to-register">Don't have a vault? Create Account</a>
+            </div>
+        </div>
+
+        <!-- Register Card -->
+        <div class="auth-card" id="auth-card-register">
+            <div class="auth-header">
+                <h2>Create Local Account</h2>
+                <p>Your details are encrypted on-device</p>
+            </div>
+            <div class="form-group">
+                <label>Display Name</label>
+                <div class="input-with-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="input-icon">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <input type="text" id="register-name" placeholder="Alex Mercer" class="form-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <div class="input-with-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="input-icon">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <input type="email" id="register-email" placeholder="email@example.com" class="form-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Security PIN (4 digits)</label>
+                <div class="input-with-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="input-icon">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <input type="password" id="register-pin" maxlength="4" placeholder="••••" class="form-input" inputmode="numeric">
+                </div>
+            </div>
+            <div id="register-error" class="error-msg"></div>
+            <button class="btn btn-primary" id="btn-register-submit">Register Secure Vault</button>
+            <div class="auth-footer">
+                <a href="#" id="link-go-to-login">Already have a vault? Decrypt here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div id="app-container" class="layout-wrapper">
+        <!-- Navigation Sidebar (Desktop) / Navigation Header-Footer (Mobile) -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-brand text-green">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span class="brand-text">Finoraax</span>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-tab="0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Overview</span>
+                </button>
+                <button class="nav-item" data-tab="1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    <span>Ledger</span>
+                </button>
+                <button class="nav-item" data-tab="2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <span>Budgets</span>
+                </button>
+                <button class="nav-item" data-tab="3">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>Calendar</span>
+                </button>
+                <button class="nav-item" data-tab="4">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <span>Leak Audit</span>
+                </button>
+                <button class="nav-item" data-tab="5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span>AI Advisor</span>
+                </button>
+                <button class="nav-item" data-tab="6">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Vault Settings</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Body Wrapper -->
+        <main class="main-content">
+            <!-- HEADER -->
+            <header class="app-header">
+                <div class="header-mobile-branding">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-brand text-green">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span class="brand-text">Finoraax</span>
+                </div>
+                <div class="header-status">
+                    <span class="status-indicator-dot"></span>
+                    <span class="status-indicator-text text-green font-bold">VIRTUAL VAULT SECURITY ACTIVE</span>
+                </div>
+                <div class="header-actions">
+                    <!-- Notifications bell drop -->
+                    <div class="dropdown" id="notification-dropdown-container">
+                        <button class="btn-icon" id="btn-bell" title="Alerts">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bell-icon">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                            <span class="notification-badge" id="bell-badge" style="display: none;"></span>
+                        </button>
+                        <div class="dropdown-menu" id="notification-menu">
+                            <div class="dropdown-header">
+                                <h3>Finance Protection Alerts</h3>
+                                <button class="btn-link" id="btn-clear-notifications">Clear All</button>
+                            </div>
+                            <hr class="divider">
+                            <div class="dropdown-list" id="notification-list">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-icon" id="btn-logout-trigger" title="Log out secure key">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- VIEWPORT SCROLL WRAPPER -->
+            <div class="scroll-viewport">
+
+                <!-- TAB 0: OVERVIEW -->
+                <div class="tab-panel active" id="panel-overview">
+                    <!-- Welcoming card -->
+                    <div class="glass-card welcome-card">
+                        <div class="welcome-card-header">
+                            <div>
+                                <span class="badge badge-gold">VIRTUAL VAULT ACTIVE</span>
+                                <h2 class="welcome-title text-warm font-bold" id="dashboard-user-greeting">Hi, User</h2>
+                            </div>
+                            <!-- Cryptographic Vault Dial Ring Vector -->
+                            <div class="vault-dial">
+                                <svg class="vault-dial-svg" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="45" stroke="rgba(197, 160, 89, 0.2)" stroke-width="3" fill="none"/>
+                                    <circle cx="50" cy="50" r="35" stroke="var(--color-gold-primary)" stroke-width="4" fill="none"/>
+                                    <!-- Dial ticks -->
+                                    <g stroke="var(--color-gold-secondary)" stroke-width="2">
+                                        <line x1="50" y1="5" x2="50" y2="15" />
+                                        <line x1="50" y1="85" x2="50" y2="95" />
+                                        <line x1="5" y1="50" x2="15" y2="50" />
+                                        <line x1="85" y1="50" x2="95" y2="50" />
+                                        <line x1="18.1" y1="18.1" x2="25.2" y2="25.2" />
+                                        <line x1="74.8" y1="74.8" x2="81.9" y2="81.9" />
+                                        <line x1="18.1" y1="81.8" x2="25.2" y2="74.8" />
+                                        <line x1="74.8" y1="18.1" x2="81.9" y2="25.2" />
+                                    </g>
+                                    <circle cx="50" cy="50" r="8" fill="var(--color-gold-primary)" />
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="welcome-text text-muted">Your financial details are encrypted and analyzed fully on-device.</p>
+
+                        <div class="welcome-card-bottom">
+                            <!-- Smartcard contact chip Representation -->
+                            <div class="smart-chip">
+                                <div class="chip-line horizontal"></div>
+                                <div class="chip-line vertical vertical-1"></div>
+                                <div class="chip-line vertical vertical-2"></div>
+                            </div>
+                        </div>
+
+                        <div class="welcome-card-footer">
+                            <div class="backing-details">
+                                <span class="backing-label text-gold font-bold">TOTAL LIQUID SECURITY BACKING</span>
+                                <h1 class="backing-amount text-gold" id="net-liquid-backing">₹0.00</h1>
+                            </div>
+                            <div class="currency-tag">INR - Default</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats row -->
+                    <div class="stats-row">
+                        <!-- Inflow Card -->
+                        <div class="glass-card stat-card inflow">
+                            <div class="stat-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-green stat-icon"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                <span class="text-muted">Salary Inflow</span>
+                            </div>
+                            <h2 class="stat-amount text-green" id="inflow-amount">₹0.00</h2>
+                        </div>
+                        <!-- Outflow Card -->
+                        <div class="glass-card stat-card outflow">
+                            <div class="stat-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-red stat-icon"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                <span class="text-muted">Active Outflow</span>
+                            </div>
+                            <h2 class="stat-amount text-red" id="outflow-amount">₹0.00</h2>
+                        </div>
+                    </div>
+
+                    <!-- Health and Leak Indicator -->
+                    <div class="glass-card flex-between-card hover-lift cursor-pointer" id="btn-go-to-leak-detector">
+                        <div class="health-meta">
+                            <h3 class="card-title text-warm font-bold">Subscription Health Meter</h3>
+                            <p class="card-subtitle text-muted">Forgotten recurring plans reduce your score.</p>
+                            <span class="health-status-badge text-green font-bold" id="health-status-text">Optimal Health</span>
+                        </div>
+                        <div class="circular-progress-wrapper">
+                            <svg class="circular-progress" viewBox="0 0 36 36">
+                                <path class="circle-bg"
+                                    d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="rgba(197, 160, 89, 0.1)" stroke-width="3"
+                                />
+                                <path class="circle-fg text-green" id="health-meter-arc"
+                                    stroke-dasharray="100, 100"
+                                    d="M18 2.0845
+                                        a 15.9155 15.9155 0 0 1 0 31.831
+                                        a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="var(--color-jade-green)" stroke-width="3" stroke-linecap="round"
+                                />
+                            </svg>
+                            <span class="progress-percentage text-warm font-bold" id="health-percentage-text">100%</span>
+                        </div>
+                    </div>
+
+                    <!-- Emergency Fund Tracker -->
+                    <div class="glass-card emergency-tracker-card">
+                        <div class="emergency-tracker-header">
+                            <div>
+                                <h3 class="card-title text-warm font-bold">Active Protection: Emergency Runway</h3>
+                                <p class="card-subtitle text-muted font-sm">Provides cushion for unexpected spikes</p>
+                            </div>
+                            <button class="btn-icon text-gold" id="btn-add-goal-shortcut" title="New Goal">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </button>
+                        </div>
+
+                        <!-- Runway Progress Track -->
+                        <div class="runway-container">
+                            <div class="runway-track-ticks" id="runway-dashes">
+                                <!-- Dashes drawn dynamically/CSS -->
+                            </div>
+                            <div class="runway-fill-bar" id="runway-progress-fill">
+                                <div class="runway-fill-ticks" id="runway-fill-dashes"></div>
+                            </div>
+                        </div>
+
+                        <div class="runway-stats font-bold font-sm">
+                            <span class="text-warm" id="emergency-cushion-set">₹0 cushion set</span>
+                            <span class="text-muted" id="emergency-goal-text">Goal ₹0 (0%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Box -->
+                    <div class="glass-card actions-box-card">
+                        <div class="actions-row">
+                            <button class="btn btn-secondary flex-center" id="btn-quick-add-tx">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                <span>Add Record</span>
+                            </button>
+                            <button class="btn btn-secondary flex-center" id="btn-quick-add-goal">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                <span>Add Goal</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Entries Ledger -->
+                    <div class="ledger-summary-section">
+                        <h3 class="section-title text-warm font-bold">Recent Ledger Records</h3>
+                        <div id="recent-ledger-list" class="ledger-records-list">
+                            <!-- Dynamic records -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 1: LEDGER -->
+                <div class="tab-panel" id="panel-ledger">
+                    <!-- Bank Statement Importer -->
+                    <div class="glass-card statement-importer-card">
+                        <div class="importer-header">
+                            <h3 class="card-title text-warm font-bold">Bank Statement Importer</h3>
+                            <button class="btn-icon" id="btn-toggle-importer" title="Toggle Statement Parser">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="icon-importer-state"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </button>
+                        </div>
+                        <p class="card-subtitle text-muted font-sm">Paste bank statement text data (CSV rows format) to securely parse and import transactions.</p>
+                        
+                        <div class="importer-content-area" id="importer-body" style="display: none;">
+                            <div class="form-group margin-top-12">
+                                <textarea id="statement-paste-area" rows="6" class="form-textarea" placeholder="E.g.&#10;WholeFoods Checkout, Groceries, 145.20, 2026-06-02, EXPENSE&#10;Taco Bistro, Dining, 85.00, 2026-06-04&#10;Salary Paycheck, 4200.00, INCOME"></textarea>
+                            </div>
+                            <div id="import-result" class="import-msg"></div>
+                            <button class="btn btn-primary" id="btn-parse-statement">Import Statement Records</button>
+                        </div>
+                    </div>
+
+                    <!-- Transaction List Grid -->
+                    <div class="ledger-workspace">
+                        <div class="ledger-controls flex-between">
+                            <h3 class="section-title text-warm font-bold">Ledger Transactions</h3>
+                            <div class="filter-controls">
+                                <select id="ledger-filter-type" class="form-select">
+                                    <option value="ALL">All Entries</option>
+                                    <option value="INCOME">Inflow (Income)</option>
+                                    <option value="EXPENSE">Outflow (Expense)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="ledger-table-container">
+                            <table class="ledger-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Note / Vendor</th>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ledger-table-body">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                            <div id="ledger-empty-msg" class="empty-state-msg" style="display: none;">
+                                No records found matching the criteria.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: BUDGETS & GOALS -->
+                <div class="tab-panel" id="panel-budgets">
+                    <!-- Category Budgets Grid -->
+                    <div class="budgets-section">
+                        <div class="flex-between margin-bottom-16">
+                            <h3 class="section-title text-warm font-bold">Category Budgets</h3>
+                            <span class="text-muted font-sm" id="budget-month-label">June 2026</span>
+                        </div>
+                        <div class="budgets-grid" id="budgets-progress-grid">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Savings Goals Grid -->
+                    <div class="goals-section margin-top-32">
+                        <div class="flex-between margin-bottom-16">
+                            <h3 class="section-title text-warm font-bold">Savings Goals</h3>
+                            <button class="btn btn-secondary flex-center" id="btn-add-savings-goal">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                <span>New Goal</span>
+                            </button>
+                        </div>
+                        <div class="goals-grid" id="savings-goals-grid">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: CALENDAR -->
+                <div class="tab-panel" id="panel-calendar">
+                    <div class="calendar-layout">
+                        <!-- Left Side: Interactive Calendar -->
+                        <div class="glass-card calendar-card">
+                            <div class="calendar-header flex-between">
+                                <button class="btn-icon text-muted" id="btn-prev-month">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                </button>
+                                <h3 class="text-warm font-bold" id="calendar-month-year">June 2026</h3>
+                                <button class="btn-icon text-muted" id="btn-next-month">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                            </div>
+                            
+                            <div class="calendar-days-header grid-7">
+                                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                            </div>
+                            <div class="calendar-grid grid-7" id="calendar-grid-cells">
+                                <!-- Days render dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Bills Tracker -->
+                        <div class="bills-sidebar">
+                            <div class="flex-between margin-bottom-16">
+                                <h3 class="section-title text-warm font-bold">Upcoming Vault Bills</h3>
+                                <button class="btn btn-secondary btn-sm flex-center" id="btn-add-bill">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    <span>Add Bill</span>
+                                </button>
+                            </div>
+                            <div class="bills-list" id="upcoming-bills-list">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 4: LEAK AUDIT -->
+                <div class="tab-panel" id="panel-leak">
+                    <!-- Leak Dashboard -->
+                    <div class="stats-row">
+                        <div class="glass-card leak-score-card">
+                            <div class="leak-score-meta">
+                                <h3 class="card-title text-warm font-bold">Active Protection Leak Score</h3>
+                                <p class="card-subtitle text-muted font-sm">Based on active forgotten subscriptions.</p>
+                                <h1 class="score-large text-gold margin-top-12" id="leak-score-value">100</h1>
+                            </div>
+                            <div class="circular-progress-wrapper large-progress">
+                                <svg class="circular-progress" viewBox="0 0 36 36">
+                                    <path class="circle-bg"
+                                        d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none" stroke="rgba(197, 160, 89, 0.1)" stroke-width="3"
+                                    />
+                                    <path class="circle-fg text-gold" id="leak-score-meter-arc"
+                                        stroke-dasharray="100, 100"
+                                        d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        fill="none" stroke="var(--color-gold-primary)" stroke-width="3" stroke-linecap="round"
+                                    />
+                                </svg>
+                                <span class="progress-percentage text-warm font-bold" id="leak-score-percentage">100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subscription List -->
+                    <div class="leak-workspace margin-top-24">
+                        <div class="flex-between margin-bottom-16">
+                            <h3 class="section-title text-warm font-bold">Tracked Autopay Subscriptions</h3>
+                            <button class="btn btn-secondary flex-center" id="btn-add-subscription">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                <span>Add Sub</span>
+                            </button>
+                        </div>
+
+                        <div class="subscription-leaks-list" id="subscriptions-list-container">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: AI ADVISOR -->
+                <div class="tab-panel" id="panel-advisor">
+                    <div class="advisor-layout">
+                        <!-- Left Panel: Chat Interface -->
+                        <div class="glass-card chat-card">
+                            <div class="chat-header">
+                                <h3 class="card-title text-warm font-bold">Secure AI Advisor Copilot</h3>
+                                <p class="card-subtitle text-muted font-sm">Analyzed fully on-device via Gemini endpoints</p>
+                            </div>
+                            <div class="chat-messages" id="advisor-chat-messages">
+                                <!-- Bubbles render dynamically -->
+                            </div>
+                            <div class="chat-typing-indicator" id="advisor-typing-indicator" style="display: none;">
+                                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                                <span class="typing-text text-muted font-sm margin-left-8">AI Advisor auditing database...</span>
+                            </div>
+                            <div class="chat-input-row">
+                                <input type="text" id="advisor-chat-input" placeholder="Ask advisor: 'Audit my subscriptions' or 'How to boost savings?'..." class="form-input">
+                                <button class="btn btn-primary btn-icon-only" id="btn-send-message">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="send-icon"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Recommendation Widget -->
+                        <div class="advisor-recommendations">
+                            <div class="glass-card recommendation-card">
+                                <h3 class="card-title text-warm font-bold">Expert Protection Audit</h3>
+                                <div class="recommendation-content text-muted font-sm margin-top-12" id="advisor-audit-text">
+                                    Click 'Generate Advisor Recommendation' below to launch security audits and custom cash flow suggestions based on your local data.
+                                </div>
+                                <button class="btn btn-primary margin-top-24 width-full" id="btn-generate-advisor-audit">Generate Advisor Recommendation</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 6: VAULT SETTINGS -->
+                <div class="tab-panel" id="panel-vault">
+                    <div class="vault-grid">
+                        <!-- Left: Investments Tracker -->
+                        <div class="investments-column">
+                            <div class="flex-between margin-bottom-16">
+                                <h3 class="section-title text-warm font-bold">Active Investment Assets</h3>
+                                <button class="btn btn-secondary flex-center" id="btn-add-investment">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon-svg"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    <span>Add Asset</span>
+                                </button>
+                            </div>
+                            <div class="investments-list" id="vault-investments-list">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Right: User details & Settings -->
+                        <div class="settings-column">
+                            <div class="glass-card settings-card">
+                                <h3 class="card-title text-warm font-bold">Secure Vault Configuration</h3>
+                                <hr class="divider margin-vertical-16">
+
+                                <div class="profile-summary flex-center margin-bottom-24">
+                                    <div class="avatar-large text-green">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    </div>
+                                    <div class="profile-meta margin-left-16">
+                                        <h4 class="text-warm font-bold" id="settings-user-name">Alex Mercer</h4>
+                                        <p class="text-muted font-sm" id="settings-user-email">alex@example.com</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="label-bold">Gemini API Decryption Key</label>
+                                    <input type="password" id="vault-api-key-input" placeholder="AI Studio Key (AI Advisor Live)" class="form-input">
+                                    <p class="help-text text-muted font-sm">Key is cached on-device in secure localStorage. Cleared instantly on logout.</p>
+                                </div>
+
+                                <hr class="divider margin-vertical-24">
+
+                                <div class="settings-actions">
+                                    <button class="btn btn-secondary text-red border-red width-full" id="btn-reseed-db-trigger">Reset Local Sandbox Data</button>
+                                    <button class="btn btn-primary margin-top-12 width-full" id="btn-settings-logout">Close Secure Vault</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL CONTAINERS -->
+    <!-- Add Transaction Modal -->
+    <div class="modal-overlay" id="modal-add-tx">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Log Vault Record</h3>
+                <button class="btn-close modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Entry Type</label>
+                    <div class="flex-row gap-12">
+                        <label class="radio-label"><input type="radio" name="tx-type" value="EXPENSE" checked> Expense (Outflow)</label>
+                        <label class="radio-label"><input type="radio" name="tx-type" value="INCOME"> Income (Inflow)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="tx-category" class="form-select">
+                        <option value="Groceries">Groceries</option>
+                        <option value="Dining">Dining</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Leaky Subscription">Leaky Subscription</option>
+                        <option value="Investment Returns">Investment Returns</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount (₹)</label>
+                    <input type="number" id="tx-amount" placeholder="0.00" step="0.01" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="tx-date" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Note / Description</label>
+                    <input type="text" id="tx-note" placeholder="Grocery checkout, salary payout..." class="form-input">
+                </div>
+                <div id="tx-modal-error" class="error-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-transaction">Save Entry</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Savings Goal Modal -->
+    <div class="modal-overlay" id="modal-add-goal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Configure Savings Goal</h3>
+                <button class="btn-close modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Goal Name</label>
+                    <input type="text" id="goal-name" placeholder="Emergency Fund, Tesla downpayment..." class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Target Amount (₹)</label>
+                    <input type="number" id="goal-target" placeholder="15000" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Current Capital Allocated (₹)</label>
+                    <input type="number" id="goal-current" placeholder="8400" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Target Date</label>
+                    <input type="date" id="goal-date" class="form-input">
+                </div>
+                <div class="form-group flex-row gap-8 align-center">
+                    <input type="checkbox" id="goal-is-emergency" class="form-checkbox">
+                    <label for="goal-is-emergency">Is Emergency Fund Runway</label>
+                </div>
+                <div id="goal-modal-error" class="error-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-goal">Create Goal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Bill Modal -->
+    <div class="modal-overlay" id="modal-add-bill">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Schedule Bill Autopay</h3>
+                <button class="btn-close modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Bill Name</label>
+                    <input type="text" id="bill-name" placeholder="Electricity Grid Bill" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Amount Due (₹)</label>
+                    <input type="number" id="bill-amount" placeholder="124.50" step="0.01" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" id="bill-date" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="bill-category" class="form-select">
+                        <option value="Utilities">Utilities</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div id="bill-modal-error" class="error-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-bill">Schedule Bill</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Subscription Modal -->
+    <div class="modal-overlay" id="modal-add-sub">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Register Subscription</h3>
+                <button class="btn-close modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Subscription Name</label>
+                    <input type="text" id="sub-name" placeholder="Netflix Premium OTT" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Cost (₹ / billing cycle)</label>
+                    <input type="number" id="sub-cost" placeholder="19.99" step="0.01" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Billing Cycle</label>
+                    <select id="sub-cycle" class="form-select">
+                        <option value="Monthly">Monthly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Next Renewal Date</label>
+                    <input type="date" id="sub-renewal" class="form-input">
+                </div>
+                <div class="form-group flex-row gap-8 align-center">
+                    <input type="checkbox" id="sub-is-forgotten" class="form-checkbox">
+                    <label for="sub-is-forgotten">Flag as Potential Leak (Unused / Forgotten)</label>
+                </div>
+                <div class="form-group" id="sub-leak-reason-group" style="display: none;">
+                    <label>Leak Reason</label>
+                    <input type="text" id="sub-leak-reason" placeholder="E.g. 0 Check-ins in last 60 days" class="form-input">
+                </div>
+                <div id="sub-modal-error" class="error-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-subscription">Register Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Investment Asset Modal -->
+    <div class="modal-overlay" id="modal-add-investment">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Track Investment Asset</h3>
+                <button class="btn-close modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Asset Name</label>
+                    <input type="text" id="invest-name" placeholder="S&P 500 Index Fund (VOO)" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Asset Type</label>
+                    <select id="invest-type" class="form-select">
+                        <option value="Stock">Stock / Index Fund</option>
+                        <option value="Crypto">Crypto</option>
+                        <option value="Bonds">Bonds</option>
+                        <option value="Mutual Fund">Mutual Fund</option>
+                        <option value="Real Estate">Real Estate</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Initial Capital Injected (₹)</label>
+                    <input type="number" id="invest-init" placeholder="4500" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Current Market Valuation (₹)</label>
+                    <input type="number" id="invest-current" placeholder="4850" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Units / Shares Owned</label>
+                    <input type="number" id="invest-units" placeholder="10.5" step="any" class="form-input">
+                </div>
+                <div id="invest-modal-error" class="error-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-investment">Add Asset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Savings progress Modal -->
+    <div class="modal-overlay" id="modal-update-goal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Update Goal Capital</h3>
+                <button class="btn-close modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="update-goal-id">
+                <div class="form-group">
+                    <label id="update-goal-title">Goal Name</label>
+                    <input type="number" id="update-goal-amount" placeholder="0.00" class="form-input">
+                </div>
+                <div id="update-goal-error" class="error-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-submit-update-goal">Update Capital</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Investment valuation Modal -->
+    <div class="modal-overlay" id="modal-update-invest">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Update Asset Valuation</h3>
+                <button class="btn-close modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="update-invest-id">
+                <div class="form-group">
+                    <label id="update-invest-title">Asset Name</label>
+                    <input type="number" id="update-invest-amount" placeholder="0.00" class="form-input">
+                </div>
+                <div id="update-invest-error" class="error-msg"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-close-btn">Cancel</button>
+                <button class="btn btn-primary" id="btn-submit-update-invest">Update Value</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load App Scripts -->
+    <script>
+// --- SECURITY & HASHING HELPER ---
+async function hashPin(pin) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(pin + "finoraax-salt-premium");
+    const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// --- SECURE LOCAL DATABASE (LOCALSTORAGE ENGINE) ---
+const DB_PREFIX = "finoraax_db_";
+
+const db = {
+    get(key, defaultValue = null) {
+        const value = localStorage.getItem(DB_PREFIX + key);
+        if (value === null) return defaultValue;
+        try {
+            return JSON.parse(value);
+        } catch (e) {
+            return defaultValue;
+        }
+    },
+    set(key, value) {
+        localStorage.setItem(DB_PREFIX + key, JSON.stringify(value));
+    },
+    clear() {
+        // Clear only finoraax items
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith(DB_PREFIX)) {
+                localStorage.removeItem(key);
+            }
+        });
+    }
+};
+
+// --- DEFAULT SEED DATA ---
+const DEFAULT_USER = null; // Forces signup initially
+
+const DEFAULT_BUDGETS = [
+    // June 2026
+    { id: 1, category: "All", limitAmount: 3000.0, spentAmount: 1450.0, monthYear: "2026-06" },
+    { id: 2, category: "Groceries", limitAmount: 500.0, spentAmount: 320.0, monthYear: "2026-06" },
+    { id: 3, category: "Entertainment", limitAmount: 250.0, spentAmount: 180.0, monthYear: "2026-06" },
+    { id: 4, category: "Utilities", limitAmount: 400.0, spentAmount: 270.0, monthYear: "2026-06" },
+    { id: 5, category: "Dining", limitAmount: 500.0, spentAmount: 425.0, monthYear: "2026-06" },
+    // July 2026
+    { id: 6, category: "All", limitAmount: 3000.0, spentAmount: 0.0, monthYear: "2026-07" },
+    { id: 7, category: "Groceries", limitAmount: 500.0, spentAmount: 0.0, monthYear: "2026-07" },
+    { id: 8, category: "Entertainment", limitAmount: 250.0, spentAmount: 0.0, monthYear: "2026-07" },
+    { id: 9, category: "Utilities", limitAmount: 400.0, spentAmount: 0.0, monthYear: "2026-07" },
+    { id: 10, category: "Dining", limitAmount: 500.0, spentAmount: 0.0, monthYear: "2026-07" }
+];
+
+const DEFAULT_GOALS = [
+    { id: 1, name: "Emergency Fund 6 Months", targetAmount: 15000.0, currentAmount: 8400.0, targetDate: "2026-12-31", isEmergencyFund: true },
+    { id: 2, name: "New Laptop", targetAmount: 1800.0, currentAmount: 1200.0, targetDate: "2026-09-15", isEmergencyFund: false },
+    { id: 3, name: "Tesla Down Payment", targetAmount: 10000.0, currentAmount: 2500.0, targetDate: "2027-06-01", isEmergencyFund: false }
+];
+
+const DEFAULT_BILLS = [
+    { id: 1, name: "Electricity Grid bill", amount: 124.50, dueDate: "2026-06-18", isPaid: false, category: "Utilities" },
+    { id: 2, name: "High-speed Fiber Wifi", amount: 65.00, dueDate: "2026-06-21", isPaid: true, category: "Utilities" },
+    { id: 3, name: "Premium Mobile Recharge", amount: 29.99, dueDate: "2026-06-25", isPaid: false, category: "Utilities" },
+    { id: 4, name: "Home Insurance policy", amount: 89.00, dueDate: "2026-07-02", isPaid: false, category: "Utilities" }
+];
+
+const DEFAULT_SUBS = [
+    {
+        id: 1,
+        name: "Netflix Premium OTT",
+        cost: 19.99,
+        billingCycle: "Monthly",
+        nextRenewalDate: "2026-06-18",
+        isForgotten: false,
+        status: "Active",
+        leakReason: "High usage shared with family",
+        optimizationSuggestion: "Downgrade to Standard HD to save $4.50 monthly.",
+        scoreImpact: 0
+    },
+    {
+        id: 2,
+        name: "Abandoned Premium Gym Pass",
+        cost: 55.00,
+        billingCycle: "Monthly",
+        nextRenewalDate: "2026-06-22",
+        isForgotten: true,
+        status: "Active",
+        leakReason: "0 Check-ins in last 60 days",
+        optimizationSuggestion: "Cancel immediately. Subscription is a continuous financial leak.",
+        scoreImpact: 35
+    },
+    {
+        id: 3,
+        name: "Spotify Premium Duo",
+        cost: 14.99,
+        billingCycle: "Monthly",
+        nextRenewalDate: "2026-06-29",
+        isForgotten: false,
+        status: "Active",
+        leakReason: "Highly active musical streaming",
+        optimizationSuggestion: "Switch to Spotify Family if more users join.",
+        scoreImpact: 0
+    },
+    {
+        id: 4,
+        name: "AWS Test Server Node",
+        cost: 34.50,
+        billingCycle: "Monthly",
+        nextRenewalDate: "2026-06-19",
+        isForgotten: true,
+        status: "Active",
+        leakReason: "Unused testing API instance left active",
+        optimizationSuggestion: "Decommission node and cancel billing. Unused infrastructure leak.",
+        scoreImpact: 25
+    },
+    {
+        id: 5,
+        name: "Premium OTT Cooking Channel",
+        cost: 9.99,
+        billingCycle: "Monthly",
+        nextRenewalDate: "2026-06-20",
+        isForgotten: true,
+        status: "Active",
+        leakReason: "Unopened app in 90 days. Trial rolled over fully.",
+        optimizationSuggestion: "Cancel now. Save $120.00 annually.",
+        scoreImpact: 20
+    }
+];
+
+const DEFAULT_INVESTMENTS = [
+    { id: 1, name: "S&P 500 Index Fund (VOO)", type: "Stock", initialAmount: 4500.0, currentAmount: 4850.0, units: 10.5, purchaseDate: "2026-01-10" },
+    { id: 2, name: "Bitcoin ETF", type: "Crypto", initialAmount: 2000.0, currentAmount: 2150.0, units: 0.035, purchaseDate: "2026-03-05" },
+    { id: 3, name: "Govt Bonds Series-A", type: "Bonds", initialAmount: 1500.0, currentAmount: 1520.0, units: 15.0, purchaseDate: "2026-02-14" }
+];
+
+const DEFAULT_TRANSACTIONS = [
+    { id: 1, type: "INCOME", category: "Salary", amount: 4200.0, date: "2026-06-01", note: "Corporate Tech Base", isRecurring: true, isSmartCategorized: true },
+    { id: 2, type: "EXPENSE", category: "Groceries", amount: 145.20, date: "2026-06-02", note: "WholeFoods Market Checkout", isRecurring: false, isSmartCategorized: true },
+    { id: 3, type: "EXPENSE", category: "Dining", amount: 85.00, date: "2026-06-04", note: "Taco Bistro dine-out", isRecurring: false, isSmartCategorized: true },
+    { id: 4, type: "EXPENSE", category: "Entertainment", amount: 19.99, date: "2026-06-05", note: "Netflix Premium OTT charge", isRecurring: false, isSmartCategorized: true },
+    { id: 5, type: "EXPENSE", category: "Utilities", amount: 65.00, date: "2026-06-06", note: "High-speed Fiber Wifi bill", isRecurring: false, isSmartCategorized: true },
+    { id: 6, type: "EXPENSE", category: "Groceries", amount: 34.50, date: "2026-06-08", note: "Fresh Farm Milk and bread", isRecurring: false, isSmartCategorized: true },
+    { id: 7, type: "EXPENSE", category: "Leaky Subscription", amount: 55.00, date: "2026-06-10", note: "Gym Pass autopay Autodebit", isRecurring: true, isSmartCategorized: true },
+    { id: 8, type: "EXPENSE", category: "Dining", amount: 112.50, date: "2026-06-11", note: "Sake Bar weekend meal", isRecurring: false, isSmartCategorized: true },
+    { id: 9, type: "INCOME", category: "Investment Returns", amount: 220.00, date: "2026-06-12", note: "Dividends paid out", isRecurring: false, isSmartCategorized: true },
+    { id: 10, type: "EXPENSE", category: "Unused Node", amount: 34.50, date: "2026-06-12", note: "AWS forgotten servers Autodebit", isRecurring: true, isSmartCategorized: true }
+];
+
+const DEFAULT_NOTIFICATIONS = [
+    { id: 1, title: "Budget Threshold Alert", message: "Dining out limit is at 85% capacity. Limit remaining is $75 for June 2026.", type: "BUDGET_ALERT", timestamp: Date.now() - 3600000, isRead: false },
+    { id: 2, title: "Subscription Autopay Approaching", message: "AWS forgotten servers billing of $34.50 is scheduled on Jun 19, 2026.", type: "LEAK_ALERT", timestamp: Date.now() - 7200000, isRead: false }
+];
+
+const DEFAULT_INSIGHTS = [
+    { id: 1, title: "Urgent: Direct Subscription Leaks Identified", content: "We have discovered 3 active subscription channels that show zero engagement in the last 60 days. Cancelling Gym Pass and AWS unused test servers yields $89.50 in monthly budget relief.", type: "ALERT", timestamp: Date.now() }
+];
+
+// --- CORE APP STATE CONTROLLER ---
+class FinoraaxApplication {
+    constructor() {
+        this.user = null;
+        this.transactions = [];
+        this.budgets = [];
+        this.savingsGoals = [];
+        this.bills = [];
+        this.subscriptions = [];
+        this.investments = [];
+        this.notifications = [];
+        this.insights = [];
+        
+        // Navigation / Onboarding state
+        this.currentStep = 0; // Onboarding step
+        this.activeTab = 0;   // App navigation tab
+        this.calendarMonth = "2026-06"; // Calendar navigation
+        
+        // Chat UI state
+        this.chatHistory = [
+            { message: "Hi there! Welcome to Finoraax. I am your secure, privacy-first AI Advisor. I've analyzed your June transactions and flagged 3 continuous subscription leaks, including a $55.00/mo gym pass you haven't checked into once. How would you like me to optimize your cash flow today?", isAdvisor: true }
+        ];
+        this.isAnalyzing = false;
+        this.advisorAdvice = "Click 'Generate Advisor Recommendation' below to launch security audits and custom cash flow suggestions based on your local data.";
+        
+        // Lockout details
+        this.failedAttempts = 0;
+        this.lockoutTimeLeft = 0;
+        this.lockoutTimer = null;
+        
+        this.apiKey = "";
+        this.apiBase = "http://localhost:5000";
+    }
+
+    async init() {
+        await this.loadDatabase();
+        this.bindEvents();
+        this.renderAll();
+    }
+
+    async apiCall(endpoint, method = "GET", body = null) {
+        const headers = {
+            "Content-Type": "application/json"
+        };
+        if (this.user && this.user.sessionToken) {
+            headers["Authorization"] = `Bearer ${this.user.sessionToken}`;
+        }
+        
+        try {
+            const options = { method, headers };
+            if (body) {
+                options.body = JSON.stringify(body);
+            }
+            const response = await fetch(`${this.apiBase}${endpoint}`, options);
+            if (response.status === 401) {
+                this.logout();
+                throw new Error("Unauthorized");
+            }
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                throw new Error(errData.error || `HTTP error ${response.status}`);
+            }
+            return await response.json();
+        } catch (e) {
+            console.error(`API Call failed: ${method} ${endpoint}`, e);
+            throw e;
+        }
+    }
+
+    async syncFromBackend() {
+        if (!this.user || !this.user.sessionToken) return;
+        try {
+            // Get profile to verify and refresh
+            const profile = await this.apiCall("/api/user/profile");
+            this.user = { ...this.user, ...profile };
+            db.set("user", this.user);
+            
+            // Get all other models
+            this.transactions = await this.apiCall("/api/transactions");
+            this.budgets = await this.apiCall("/api/budgets?monthYear=2026-06");
+            this.savingsGoals = await this.apiCall("/api/savings-goals");
+            this.bills = await this.apiCall("/api/bills");
+            this.subscriptions = await this.apiCall("/api/subscriptions");
+            this.investments = await this.apiCall("/api/investments");
+            this.notifications = await this.apiCall("/api/notifications");
+            
+            try {
+                const chatHist = await this.apiCall("/api/chat/history");
+                if (chatHist.length > 0) {
+                    this.chatHistory = chatHist.map(item => ({
+                        message: item.content,
+                        isAdvisor: item.role === "assistant"
+                    }));
+                }
+            } catch (chatErr) {
+                console.warn("Failed to fetch chat history from server", chatErr);
+            }
+            
+            // Update local fallback cache
+            db.set("transactions", this.transactions);
+            db.set("budgets", this.budgets);
+            db.set("goals", this.savingsGoals);
+            db.set("bills", this.bills);
+            db.set("subscriptions", this.subscriptions);
+            db.set("investments", this.investments);
+            db.set("notifications", this.notifications);
+        } catch (e) {
+            console.warn("Backend offline or error syncing. Falling back to cached local storage data.", e);
+        }
+    }
+
+    async seedDefaultsToBackend() {
+        try {
+            const txs = await this.apiCall("/api/transactions");
+            if (txs.length === 0) {
+                // Post default transactions
+                for (const tx of DEFAULT_TRANSACTIONS) {
+                    await this.apiCall("/api/transactions", "POST", tx);
+                }
+                // Post default budgets
+                for (const b of DEFAULT_BUDGETS) {
+                    await this.apiCall("/api/budgets", "POST", {
+                        category: b.category,
+                        limitAmount: b.limitAmount,
+                        spentAmount: b.spentAmount,
+                        monthYear: b.monthYear
+                    });
+                }
+                // Post default goals
+                for (const g of DEFAULT_GOALS) {
+                    await this.apiCall("/api/savings-goals", "POST", {
+                        name: g.name,
+                        targetAmount: g.targetAmount,
+                        currentAmount: g.currentAmount,
+                        targetDate: g.targetDate,
+                        isEmergencyFund: g.isEmergencyFund ? 1 : 0
+                    });
+                }
+                // Post default bills
+                for (const bill of DEFAULT_BILLS) {
+                    await this.apiCall("/api/bills", "POST", {
+                        name: bill.name,
+                        amount: bill.amount,
+                        dueDate: bill.dueDate,
+                        isPaid: bill.isPaid ? 1 : 0,
+                        category: bill.category
+                    });
+                }
+                // Post default subscriptions
+                for (const sub of DEFAULT_SUBS) {
+                    await this.apiCall("/api/subscriptions", "POST", {
+                        name: sub.name,
+                        cost: sub.cost,
+                        billingCycle: sub.billingCycle,
+                        nextRenewalDate: sub.nextRenewalDate,
+                        isForgotten: sub.isForgotten ? 1 : 0,
+                        status: sub.status,
+                        leakReason: sub.leakReason,
+                        optimizationSuggestion: sub.optimizationSuggestion,
+                        scoreImpact: sub.scoreImpact
+                    });
+                }
+                // Post default investments
+                for (const inv of DEFAULT_INVESTMENTS) {
+                    await this.apiCall("/api/investments", "POST", {
+                        name: inv.name,
+                        type: inv.type,
+                        initialAmount: inv.initialAmount,
+                        currentAmount: inv.currentAmount,
+                        units: inv.units,
+                        purchaseDate: inv.purchaseDate
+                    });
+                }
+                // Post default notifications
+                for (const note of DEFAULT_NOTIFICATIONS) {
+                    await this.apiCall("/api/notifications", "POST", {
+                        title: note.title,
+                        message: note.message,
+                        type: note.type
+                    });
+                }
+            }
+        } catch (err) {
+            console.error("Failed to seed default database values on backend", err);
+        }
+    }
+
+    async loadDatabase() {
+        this.user = db.get("user", DEFAULT_USER);
+        this.transactions = db.get("transactions", []);
+        this.budgets = db.get("budgets", []);
+        this.savingsGoals = db.get("goals", []);
+        this.bills = db.get("bills", []);
+        this.subscriptions = db.get("subscriptions", []);
+        this.investments = db.get("investments", []);
+        this.notifications = db.get("notifications", []);
+        this.insights = db.get("insights", []);
+        this.apiKey = db.get("api_key", "");
+        
+        this.currentStep = db.get("current_step", 0);
+        this.activeTab = db.get("active_tab", 0);
+        
+        if (this.user && this.user.sessionToken) {
+            this.showScreen("app-container");
+            await this.syncFromBackend();
+            this.switchTab(this.activeTab);
+        } else if (this.user || this.currentStep >= 4) {
+            if (this.currentStep < 4) this.currentStep = 4;
+            this.showScreen("auth-screen");
+            const authCard = db.get("auth_card", "login");
+            this.toggleAuthCard(authCard);
+        } else {
+            if (this.currentStep === 0) {
+                this.showScreen("splash-screen");
+                setTimeout(() => {
+                    this.setCurrentStep(1);
+                    this.showScreen("onboarding-screen");
+                    this.toggleOnboardingSlide("privacy");
+                }, 1800);
+            } else {
+                this.showScreen("onboarding-screen");
+                const slide = db.get("onboarding_slide", "privacy");
+                this.toggleOnboardingSlide(slide);
+            }
+        }
+    }
+
+    seedSandbox() {
+        db.clear();
+        this.transactions = [...DEFAULT_TRANSACTIONS];
+        this.budgets = [...DEFAULT_BUDGETS];
+        this.savingsGoals = [...DEFAULT_GOALS];
+        this.bills = [...DEFAULT_BILLS];
+        this.subscriptions = [...DEFAULT_SUBS];
+        this.investments = [...DEFAULT_INVESTMENTS];
+        this.notifications = [...DEFAULT_NOTIFICATIONS];
+        this.insights = [...DEFAULT_INSIGHTS];
+        
+        db.set("transactions", this.transactions);
+        db.set("budgets", this.budgets);
+        db.set("goals", this.savingsGoals);
+        db.set("bills", this.bills);
+        db.set("subscriptions", this.subscriptions);
+        db.set("investments", this.investments);
+        db.set("notifications", this.notifications);
+        db.set("insights", this.insights);
+    }
+
+    saveModel(modelName) {
+        db.set(modelName, this[modelName]);
+    }
+
+    // --- NAVIGATION / SCREEN RENDERING ---
+    setCurrentStep(step) {
+        this.currentStep = step;
+        db.set("current_step", step);
+    }
+
+    showScreen(screenId) {
+        document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+        document.getElementById(screenId).classList.add("active");
+        db.set("active_screen", screenId);
+    }
+
+    toggleOnboardingSlide(slideName) {
+        document.querySelectorAll(".onboarding-slide").forEach(s => s.classList.remove("active"));
+        document.getElementById(`slide-${slideName}`).classList.add("active");
+        db.set("onboarding_slide", slideName);
+    }
+
+    toggleAuthCard(cardType) {
+        document.querySelectorAll(".auth-card").forEach(c => c.classList.remove("active"));
+        document.getElementById(`auth-card-${cardType}`).classList.add("active");
+        db.set("auth_card", cardType);
+    }
+
+    switchTab(tabIdx) {
+        this.activeTab = tabIdx;
+        db.set("active_tab", tabIdx);
+        document.querySelectorAll(".nav-item").forEach((btn, idx) => {
+            if (idx === tabIdx) btn.classList.add("active");
+            else btn.classList.remove("active");
+        });
+        document.querySelectorAll(".tab-panel").forEach((panel, idx) => {
+            if (idx === tabIdx) panel.classList.add("active");
+            else panel.classList.remove("active");
+        });
+        this.renderTabContent(tabIdx);
+    }
+
+    // --- DOM RENDERING AND CALCULATIONS ---
+    renderAll() {
+        this.renderTopBar();
+        this.renderOverview();
+        this.renderLedger();
+        this.renderBudgetsAndGoals();
+        this.renderCalendar();
+        this.renderLeakDetector();
+        this.renderAdvisor();
+        this.renderSettings();
+    }
+
+    renderTabContent(tabIdx) {
+        switch (tabIdx) {
+            case 0: this.renderOverview(); break;
+            case 1: this.renderLedger(); break;
+            case 2: this.renderBudgetsAndGoals(); break;
+            case 3: this.renderCalendar(); break;
+            case 4: this.renderLeakDetector(); break;
+            case 5: this.renderAdvisor(); break;
+            case 6: this.renderSettings(); break;
+        }
+    }
+
+    renderTopBar() {
+        // Bell dropdown list rendering
+        const badge = document.getElementById("bell-badge");
+        const unreadCount = this.notifications.filter(n => !n.isRead).length;
+        if (unreadCount > 0) {
+            badge.style.display = "block";
+        } else {
+            badge.style.display = "none";
+        }
+
+        const listContainer = document.getElementById("notification-list");
+        listContainer.innerHTML = "";
+
+        if (this.notifications.length === 0) {
+            listContainer.innerHTML = `<div class="dropdown-empty">No active fraud alerts or budget caps exceeded.</div>`;
+        } else {
+            this.notifications.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "dropdown-item";
+                div.innerHTML = `
+                    <h4>${item.title}</h4>
+                    <p>${item.message}</p>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+    }
+
+    renderOverview() {
+        if (this.user) {
+            document.getElementById("dashboard-user-greeting").innerText = `Hi, ${this.user.name}`;
+        }
+
+        // Net Liquid security calculation: Inflow - Outflow
+        const inflow = this.transactions.filter(t => t.type === "INCOME").reduce((sum, t) => sum + t.amount, 0);
+        const outflow = this.transactions.filter(t => t.type === "EXPENSE").reduce((sum, t) => sum + t.amount, 0);
+        const netBacking = inflow - outflow;
+
+        document.getElementById("net-liquid-backing").innerText = `₹${this.formatCurrency(netBacking)}`;
+        document.getElementById("inflow-amount").innerText = `₹${this.formatCurrency(inflow)}`;
+        document.getElementById("outflow-amount").innerText = `₹${this.formatCurrency(outflow)}`;
+
+        // Subscription Health Meter
+        const health = this.calculateSubscriptionHealth();
+        document.getElementById("health-percentage-text").innerText = `${health}%`;
+        
+        const healthMeterArc = document.getElementById("health-meter-arc");
+        healthMeterArc.setAttribute("stroke-dasharray", `${health}, 100`);
+        
+        const statusText = document.getElementById("health-status-text");
+        if (health >= 80) {
+            statusText.innerText = "Optimal Health";
+            statusText.className = "health-status-badge text-green font-bold";
+            healthMeterArc.setAttribute("stroke", "var(--color-jade-green)");
+        } else {
+            statusText.innerText = "Leaky Channels Detected";
+            statusText.className = "health-status-badge text-red font-bold";
+            healthMeterArc.setAttribute("stroke", "var(--color-alert-red)");
+        }
+
+        // Emergency Runway Tracker
+        const emergencyGoal = this.savingsGoals.find(g => g.isEmergencyFund) || {
+            name: "Emergency Reserve Fund",
+            targetAmount: 15000.0,
+            currentAmount: 8400.0,
+            isEmergencyFund: true
+        };
+
+        const target = emergencyGoal.targetAmount;
+        const current = emergencyGoal.currentAmount;
+        const pct = target > 0 ? Math.min(100, Math.round((current / target) * 100)) : 0;
+
+        document.getElementById("emergency-cushion-set").innerText = `₹${this.formatCurrency(current)} cushion set`;
+        document.getElementById("emergency-goal-text").innerText = `Goal ₹${this.formatCurrency(target)} (${pct}%)`;
+
+        // Render runway dashes in DOM
+        const runwayDashes = document.getElementById("runway-dashes");
+        const runwayFillDashes = document.getElementById("runway-fill-dashes");
+        runwayDashes.innerHTML = "";
+        runwayFillDashes.innerHTML = "";
+        for (let i = 0; i < 24; i++) {
+            const dash = document.createElement("div");
+            dash.className = "runway-dash";
+            runwayDashes.appendChild(dash);
+
+            const fillDash = document.createElement("div");
+            fillDash.className = "runway-fill-dash";
+            runwayFillDashes.appendChild(fillDash);
+        }
+        
+        document.getElementById("runway-progress-fill").style.width = `${pct}%`;
+
+        // Render Recent entries
+        const recentList = document.getElementById("recent-ledger-list");
+        recentList.innerHTML = "";
+
+        if (this.transactions.length === 0) {
+            recentList.innerHTML = `<p class="text-muted font-sm">No transactions logged. Use ADD to post sample data.</p>`;
+        } else {
+            const sorted = [...this.transactions].sort((a,b) => new Date(b.date) - new Date(a.date));
+            sorted.slice(0, 5).forEach(tx => {
+                const item = document.createElement("div");
+                item.className = "ledger-record-item";
+                const isInc = tx.type === "INCOME";
+                item.innerHTML = `
+                    <div class="record-meta">
+                        <div class="record-icon-wrapper ${isInc ? 'inflow' : 'outflow'}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                ${isInc ? '<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>' : '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>'}
+                            </svg>
+                        </div>
+                        <div class="record-details">
+                            <h4>${tx.note.length > 28 ? tx.note.substring(0, 28) + "..." : tx.note}</h4>
+                            <p>${tx.category} • ${tx.date}</p>
+                        </div>
+                    </div>
+                    <span class="record-value ${isInc ? 'text-green' : 'text-red'}">${isInc ? '+' : '-'}₹${tx.amount.toFixed(2)}</span>
+                `;
+                recentList.appendChild(item);
+            });
+        }
+    }
+
+    calculateSubscriptionHealth() {
+        const activeForgotten = this.subscriptions.filter(s => s.status === "Active" && s.isForgotten);
+        const sumImpact = activeForgotten.reduce((sum, s) => sum + s.scoreImpact, 0);
+        return Math.max(0, Math.min(100, 100 - sumImpact));
+    }
+
+    renderLedger() {
+        const typeFilter = document.getElementById("ledger-filter-type").value;
+        const tbody = document.getElementById("ledger-table-body");
+        tbody.innerHTML = "";
+
+        const filtered = this.transactions.filter(tx => {
+            if (typeFilter === "ALL") return true;
+            return tx.type === typeFilter;
+        });
+
+        const sorted = [...filtered].sort((a,b) => new Date(b.date) - new Date(a.date));
+
+        if (sorted.length === 0) {
+            document.getElementById("ledger-empty-msg").style.display = "block";
+        } else {
+            document.getElementById("ledger-empty-msg").style.display = "none";
+            sorted.forEach(tx => {
+                const tr = document.createElement("tr");
+                const isInc = tx.type === "INCOME";
+                tr.innerHTML = `
+                    <td>${tx.date}</td>
+                    <td class="font-bold text-warm">${tx.note}</td>
+                    <td><span class="badge ${isInc ? 'badge-gold' : ''}">${tx.category}</span></td>
+                    <td class="${isInc ? 'text-green' : 'text-red'} font-bold">${isInc ? '+' : '-'}₹${tx.amount.toFixed(2)}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm btn-delete-tx" data-id="${tx.id}">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    }
+
+    renderBudgetsAndGoals() {
+        // Render Budgets Progress
+        const budgetGrid = document.getElementById("budgets-progress-grid");
+        budgetGrid.innerHTML = "";
+
+        const currentBudgets = this.budgets.filter(b => b.monthYear === "2026-06");
+        
+        if (currentBudgets.length === 0) {
+            budgetGrid.innerHTML = `<div class="empty-state-msg">No budgets configured for this period.</div>`;
+        } else {
+            currentBudgets.forEach(b => {
+                const card = document.createElement("div");
+                const pct = b.limitAmount > 0 ? Math.round((b.spentAmount / b.limitAmount) * 100) : 0;
+                const overspent = b.spentAmount > b.limitAmount;
+                card.className = `budget-progress-card ${overspent ? 'overspent' : ''}`;
+                
+                let barClass = "";
+                if (pct >= 100) barClass = "danger";
+                else if (pct >= 85) barClass = "warning";
+
+                card.innerHTML = `
+                    <div class="budget-card-header">
+                        <span class="budget-cat-title">${b.category}</span>
+                        <span class="budget-limit-spent font-bold text-warm">₹${b.spentAmount.toFixed(0)} / ₹${b.limitAmount.toFixed(0)}</span>
+                    </div>
+                    <div class="budget-bar-outer">
+                        <div class="budget-bar-inner ${barClass}" style="width: ${Math.min(100, pct)}%"></div>
+                    </div>
+                    <div class="flex-between font-sm">
+                        <span class="text-muted">${pct}% utilized</span>
+                        <span class="${overspent ? 'text-red' : 'text-muted'} font-bold">${overspent ? 'Limit Exceeded' : 'Safe Capacity'}</span>
+                    </div>
+                `;
+                budgetGrid.appendChild(card);
+            });
+        }
+
+        // Render Goals Tracker
+        const goalsGrid = document.getElementById("savings-goals-grid");
+        goalsGrid.innerHTML = "";
+
+        if (this.savingsGoals.length === 0) {
+            goalsGrid.innerHTML = `<div class="empty-state-msg">No active savings goals found.</div>`;
+        } else {
+            this.savingsGoals.forEach(g => {
+                const card = document.createElement("div");
+                card.className = "goal-card";
+                const pct = g.targetAmount > 0 ? Math.round((g.currentAmount / g.targetAmount) * 100) : 0;
+
+                card.innerHTML = `
+                    <div class="goal-card-header">
+                        <div class="goal-title-box">
+                            <h4>${g.name} ${g.isEmergencyFund ? '<span class="badge badge-gold">Emergency Fund</span>' : ''}</h4>
+                            <p class="text-muted font-sm">Target Date: ${g.targetDate}</p>
+                        </div>
+                        <div class="goal-card-actions">
+                            <button class="btn btn-secondary btn-sm btn-update-goal" data-id="${g.id}">Update</button>
+                            <button class="btn btn-secondary btn-sm btn-delete-goal" data-id="${g.id}">Remove</button>
+                        </div>
+                    </div>
+                    <div class="goal-bar-outer">
+                        <div class="goal-bar-inner" style="width: ${Math.min(100, pct)}%"></div>
+                    </div>
+                    <div class="goal-stats font-bold font-sm">
+                        <span class="text-warm">₹${this.formatCurrency(g.currentAmount)} saved</span>
+                        <span class="text-muted">Goal ₹${this.formatCurrency(g.targetAmount)} (${pct}%)</span>
+                    </div>
+                `;
+                goalsGrid.appendChild(card);
+            });
+        }
+    }
+
+    renderCalendar() {
+        const [year, monthVal] = this.calendarMonth.split("-").map(Number);
+        const monthsNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        document.getElementById("calendar-month-year").innerText = `${monthsNames[monthVal - 1]} ${year}`;
+
+        const firstDayIndex = new Date(year, monthVal - 1, 1).getDay();
+        const lastDayDate = new Date(year, monthVal, 0).getDate();
+        const prevMonthLastDate = new Date(year, monthVal - 1, 0).getDate();
+        
+        const gridCells = document.getElementById("calendar-grid-cells");
+        gridCells.innerHTML = "";
+
+        const today = new Date();
+        const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+        for (let i = firstDayIndex; i > 0; i--) {
+            const dateNum = prevMonthLastDate - i + 1;
+            const prevMonth = monthVal === 1 ? 12 : monthVal - 1;
+            const prevYear = monthVal === 1 ? year - 1 : year;
+            const dateStr = `${prevYear}-${String(prevMonth).padStart(2, '0')}-${String(dateNum).padStart(2, '0')}`;
+            
+            const cell = this.createCalendarCell(dateNum, dateStr, false, todayStr);
+            gridCells.appendChild(cell);
+        }
+
+        for (let dateNum = 1; dateNum <= lastDayDate; dateNum++) {
+            const dateStr = `${year}-${String(monthVal).padStart(2, '0')}-${String(dateNum).padStart(2, '0')}`;
+            const cell = this.createCalendarCell(dateNum, dateStr, true, todayStr);
+            gridCells.appendChild(cell);
+        }
+
+        const totalCells = firstDayIndex + lastDayDate;
+        const nextMonthCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+        for (let dateNum = 1; dateNum <= nextMonthCells; dateNum++) {
+            const nextMonth = monthVal === 12 ? 1 : monthVal + 1;
+            const nextYear = monthVal === 12 ? year + 1 : year;
+            const dateStr = `${nextYear}-${String(nextMonth).padStart(2, '0')}-${String(dateNum).padStart(2, '0')}`;
+            
+            const cell = this.createCalendarCell(dateNum, dateStr, false, todayStr);
+            gridCells.appendChild(cell);
+        }
+
+        // Render Bills
+        const billsList = document.getElementById("upcoming-bills-list");
+        billsList.innerHTML = "";
+
+        if (this.bills.length === 0) {
+            billsList.innerHTML = `<div class="empty-state-msg font-sm">No scheduled bills active.</div>`;
+        } else {
+            const sortedBills = [...this.bills].sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate));
+            sortedBills.forEach(bill => {
+                const card = document.createElement("div");
+                card.className = `bill-item-card ${bill.isPaid ? 'paid' : 'unpaid'}`;
+                
+                card.innerHTML = `
+                    <div class="bill-details">
+                        <h4>${bill.name}</h4>
+                        <p>Due: ${bill.dueDate} • Category: ${bill.category}</p>
+                    </div>
+                    <div class="bill-action-col">
+                        <span class="bill-amount font-bold">₹${bill.amount.toFixed(2)}</span>
+                        ${!bill.isPaid ? `<button class="btn btn-primary btn-sm btn-pay-bill" data-id="${bill.id}">Pay Bill</button>` : `<span class="badge badge-gold">Paid</span>`}
+                    </div>
+                `;
+                billsList.appendChild(card);
+            });
+        }
+    }
+
+    createCalendarCell(dayNum, dateStr, isActiveMonth, todayStr) {
+        const cell = document.createElement("div");
+        cell.className = `calendar-grid-cell ${isActiveMonth ? 'active-month' : ''} ${dateStr === todayStr ? 'today' : ''}`;
+        cell.innerHTML = `<span>${dayNum}</span>`;
+
+        const dayTxs = this.transactions.filter(t => t.date === dateStr);
+        const dayBills = this.bills.filter(b => b.dueDate === dateStr && !b.isPaid);
+
+        const dotsContainer = document.createElement("div");
+        dotsContainer.className = "calendar-dots";
+
+        if (dayTxs.some(t => t.type === "INCOME")) {
+            const dot = document.createElement("span");
+            dot.className = "dot-indicator inflow";
+            dotsContainer.appendChild(dot);
+        }
+        if (dayTxs.some(t => t.type === "EXPENSE")) {
+            const dot = document.createElement("span");
+            dot.className = "dot-indicator outflow";
+            dotsContainer.appendChild(dot);
+        }
+        if (dayBills.length > 0) {
+            const dot = document.createElement("span");
+            dot.className = "dot-indicator bill";
+            dotsContainer.appendChild(dot);
+        }
+
+        cell.appendChild(dotsContainer);
+        return cell;
+    }
+
+    renderLeakDetector() {
+        const health = this.calculateSubscriptionHealth();
+        document.getElementById("leak-score-value").innerText = health;
+        document.getElementById("leak-score-percentage").innerText = `${health}%`;
+        document.getElementById("leak-score-meter-arc").setAttribute("stroke-dasharray", `${health}, 100`);
+
+        const listContainer = document.getElementById("subscriptions-list-container");
+        listContainer.innerHTML = "";
+
+        if (this.subscriptions.length === 0) {
+            listContainer.innerHTML = `<div class="empty-state-msg">No registered subscriptions found.</div>`;
+        } else {
+            this.subscriptions.forEach(sub => {
+                const card = document.createElement("div");
+                const isLeaking = sub.status === "Active" && sub.isForgotten;
+                const isCancelled = sub.status === "Cancelled";
+                
+                card.className = `sub-card ${isLeaking ? 'leaking' : ''} ${isCancelled ? 'cancelled' : ''}`;
+                
+                card.innerHTML = `
+                    <div class="sub-info-col">
+                        <div class="sub-title-row">
+                            <h4>${sub.name}</h4>
+                            ${isLeaking ? '<span class="leak-badge">Forgotten Leak</span>' : ''}
+                            ${isCancelled ? '<span class="badge">Decommissioned</span>' : ''}
+                        </div>
+                        <p class="leak-meta-desc">Cycle: ${sub.billingCycle} Renewal • Next renewal: ${sub.nextRenewalDate}</p>
+                        ${isLeaking ? `<p class="leak-meta-desc text-red font-bold">Risk Warning: ${sub.leakReason}</p>` : ''}
+                        <div class="leak-suggestion-box">
+                            💡 Optimization suggestion: ${sub.optimizationSuggestion}
+                        </div>
+                    </div>
+                    <div class="sub-action-col">
+                        <span class="sub-cost-text">₹${sub.cost.toFixed(2)}</span>
+                        ${sub.status === "Active" ? `
+                            <div class="sub-buttons-row">
+                                ${sub.isForgotten ? `<button class="btn btn-secondary btn-sm btn-keep-sub" data-id="${sub.id}">Keep Plan</button>` : ''}
+                                <button class="btn btn-primary btn-sm btn-cancel-sub" data-id="${sub.id}">Cancel Plan</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+    }
+
+    renderAdvisor() {
+        const messagesContainer = document.getElementById("advisor-chat-messages");
+        messagesContainer.innerHTML = "";
+
+        this.chatHistory.forEach(item => {
+            const bubble = document.createElement("div");
+            bubble.className = `message-bubble ${item.isAdvisor ? 'advisor' : 'user'}`;
+            bubble.innerHTML = this.parseSimpleMarkdown(item.message);
+            messagesContainer.appendChild(bubble);
+        });
+
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        document.getElementById("advisor-audit-text").innerHTML = this.parseSimpleMarkdown(this.advisorAdvice);
+
+        const indicator = document.getElementById("advisor-typing-indicator");
+        if (this.isAnalyzing) {
+            indicator.style.display = "flex";
+        } else {
+            indicator.style.display = "none";
+        }
+    }
+
+    renderSettings() {
+        if (this.user) {
+            document.getElementById("settings-user-name").innerText = this.user.name;
+            document.getElementById("settings-user-email").innerText = this.user.email;
+        }
+
+        document.getElementById("vault-api-key-input").value = this.apiKey;
+
+        const investList = document.getElementById("vault-investments-list");
+        investList.innerHTML = "";
+
+        if (this.investments.length === 0) {
+            investList.innerHTML = `<div class="empty-state-msg font-sm">No investment assets active in vault.</div>`;
+        } else {
+            this.investments.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "invest-card";
+                
+                const returnVal = item.currentAmount - item.initialAmount;
+                const isProfit = returnVal >= 0;
+                const changePct = item.initialAmount > 0 ? ((returnVal / item.initialAmount) * 100).toFixed(1) : "0.0";
+
+                card.innerHTML = `
+                    <div class="invest-details">
+                        <h4>${item.name}</h4>
+                        <p>Allocated: ₹${this.formatCurrency(item.initialAmount)} • Units: ${item.units}</p>
+                        <span class="invest-type-badge">${item.type}</span>
+                    </div>
+                    <div class="invest-valuations">
+                        <span class="invest-val-primary">₹${this.formatCurrency(item.currentAmount)}</span>
+                        <span class="invest-val-change ${isProfit ? 'text-green' : 'text-red'}">
+                            ${isProfit ? '▲' : '▼'} ${isProfit ? '+' : ''}₹${returnVal.toFixed(0)} (${changePct}%)
+                        </span>
+                        <div class="invest-card-actions">
+                            <button class="btn btn-secondary btn-sm btn-update-invest" data-id="${item.id}">Update Val</button>
+                            <button class="btn btn-secondary btn-sm btn-delete-invest" data-id="${item.id}">Delete</button>
+                        </div>
+                    </div>
+                `;
+                investList.appendChild(card);
+            });
+        }
+    }
+
+    // --- INTERACTIVE OPERATIONS ---
+    async registerProfile(name, email, pin) {
+        try {
+            const hash = await hashPin(pin);
+            const resp = await this.apiCall("/api/auth/register", "POST", {
+                name,
+                email,
+                pinHash: hash
+            });
+            this.user = {
+                id: resp.id,
+                name: resp.name,
+                email: resp.email,
+                pinHash: hash,
+                biometricEnabled: true,
+                privacyOnboarded: true,
+                leakDetectorOnboarded: true,
+                advisorOnboarded: true,
+                sessionToken: resp.sessionToken,
+                lastLoginTimestamp: Date.now()
+            };
+            db.set("user", this.user);
+            
+            await this.seedDefaultsToBackend();
+            await this.syncFromBackend();
+            
+            this.renderAll();
+            this.showScreen("app-container");
+            this.switchTab(0);
+        } catch (e) {
+            document.getElementById("register-error").innerText = e.message || "Registration failed.";
+        }
+    }
+
+    async loginVault(email, pin) {
+        const hash = await hashPin(pin);
+        try {
+            const resp = await this.apiCall("/api/auth/login", "POST", {
+                email,
+                pinHash: hash
+            });
+            this.failedAttempts = 0;
+            this.user = {
+                id: resp.id,
+                name: resp.name,
+                email: resp.email,
+                pinHash: hash,
+                biometricEnabled: true,
+                privacyOnboarded: true,
+                leakDetectorOnboarded: true,
+                advisorOnboarded: true,
+                sessionToken: resp.sessionToken,
+                lastLoginTimestamp: Date.now()
+            };
+            db.set("user", this.user);
+            
+            await this.syncFromBackend();
+            this.renderAll();
+            this.showScreen("app-container");
+            this.switchTab(0);
+            return "";
+        } catch (e) {
+            if (this.user && email.trim().toLowerCase() === this.user.email.trim().toLowerCase()) {
+                if (hash === this.user.pinHash) {
+                    this.failedAttempts = 0;
+                    this.user.sessionToken = "token_" + Date.now();
+                    db.set("user", this.user);
+                    this.renderAll();
+                    this.showScreen("app-container");
+                    this.switchTab(0);
+                    return "";
+                }
+            }
+            this.failedAttempts++;
+            this.checkLockout();
+            const attemptsLeft = 5 - this.failedAttempts;
+            return this.failedAttempts >= 5 ? 
+                `Too many failed attempts. Locked out.` : 
+                `Incorrect email or PIN. ${attemptsLeft} attempts remaining.`;
+        }
+    }
+
+    checkLockout() {
+        if (this.failedAttempts >= 5) {
+            this.lockoutTimeLeft = 30;
+            const submitBtn = document.getElementById("btn-login-submit");
+            const errDiv = document.getElementById("login-error");
+            
+            submitBtn.disabled = true;
+            errDiv.innerText = `Too many failed attempts. Locked out for ${this.lockoutTimeLeft} seconds.`;
+
+            this.lockoutTimer = setInterval(() => {
+                this.lockoutTimeLeft--;
+                if (this.lockoutTimeLeft <= 0) {
+                    clearInterval(this.lockoutTimer);
+                    this.failedAttempts = 0;
+                    submitBtn.disabled = false;
+                    errDiv.innerText = "";
+                } else {
+                    errDiv.innerText = `Too many failed attempts. Locked out for ${this.lockoutTimeLeft} seconds.`;
+                }
+            }, 1000);
+        }
+    }
+
+    logout() {
+        if (this.user) {
+            this.user.sessionToken = null;
+            db.set("user", this.user);
+        }
+        this.chatHistory = [
+            { message: "Hi there! Welcome to Finoraax. I am your secure, privacy-first AI Advisor. I've analyzed your June transactions and flagged 3 continuous subscription leaks, including a $55.00/mo gym pass you haven't checked into once. How would you like me to optimize your cash flow today?", isAdvisor: true }
+        ];
+        this.setCurrentStep(4);
+        this.showScreen("auth-screen");
+        this.toggleAuthCard("login");
+    }
+
+    async addTransaction(type, category, amount, date, note) {
+        const tx = { type, category, amount, date, note, isRecurring: false, isSmartCategorized: true };
+        try {
+            const resp = await this.apiCall("/api/transactions", "POST", tx);
+            tx.id = resp.id;
+        } catch (err) {
+            console.error("Backend error adding transaction, fallback to local id", err);
+            tx.id = Date.now();
+        }
+        this.transactions.push(tx);
+        this.saveModel("transactions");
+
+        const budgetPeriod = date.substring(0, 7);
+        if (type === "EXPENSE") {
+            const budgets = this.budgets.filter(b => b.monthYear === budgetPeriod);
+            const specific = budgets.find(b => b.category.toLowerCase() === category.toLowerCase());
+            const total = budgets.find(b => b.category === "All");
+
+            if (specific) {
+                specific.spentAmount += amount;
+                try {
+                    await this.apiCall(`/api/budgets/${specific.id}`, "PUT", { spentAmount: specific.spentAmount });
+                } catch (err) {
+                    console.error("Failed to update budget on server", err);
+                }
+                if (specific.spentAmount > specific.limitAmount) {
+                    await this.addNotification(
+                        "Budget Overspend Limit!",
+                        `${category} is overspent! Limit: ₹${specific.limitAmount}, Spent: ₹${specific.spentAmount}`,
+                        "BUDGET_ALERT"
+                    );
+                }
+            }
+            if (total) {
+                total.spentAmount += amount;
+                try {
+                    await this.apiCall(`/api/budgets/${total.id}`, "PUT", { spentAmount: total.spentAmount });
+                } catch (err) {
+                    console.error("Failed to update budget on server", err);
+                }
+                if (total.spentAmount > total.limitAmount) {
+                    await this.addNotification(
+                        "Total Budget Cap Exceeded!",
+                        `Your total expenditures for ${budgetPeriod} have exceeded the primary budget cap.`,
+                        "BUDGET_ALERT"
+                    );
+                }
+            }
+            this.saveModel("budgets");
+        } else {
+            if (amount > 1000) {
+                await this.addNotification(
+                    "High Cash Flow Peak!",
+                    `Captured surplus income of ₹${amount}. Finoraax Advisor recommends routing 15% directly into your custom emergency goal.`,
+                    "FRAUD_ALERT"
+                );
+            }
+        }
+
+        this.renderAll();
+    }
+
+    async deleteTransaction(id) {
+        const idx = this.transactions.findIndex(t => t.id == id);
+        if (idx !== -1) {
+            const tx = this.transactions[idx];
+            try {
+                await this.apiCall(`/api/transactions/${id}`, "DELETE");
+            } catch (err) {
+                console.error("Failed to delete transaction on server", err);
+            }
+            this.transactions.splice(idx, 1);
+            this.saveModel("transactions");
+
+            const budgetPeriod = tx.date.substring(0, 7);
+            if (tx.type === "EXPENSE") {
+                const budgets = this.budgets.filter(b => b.monthYear === budgetPeriod);
+                const specific = budgets.find(b => b.category.toLowerCase() === tx.category.toLowerCase());
+                const total = budgets.find(b => b.category === "All");
+
+                if (specific) {
+                    specific.spentAmount = Math.max(0, specific.spentAmount - tx.amount);
+                    try {
+                        await this.apiCall(`/api/budgets/${specific.id}`, "PUT", { spentAmount: specific.spentAmount });
+                    } catch (err) {
+                        console.error("Failed to update budget on server", err);
+                    }
+                }
+                if (total) {
+                    total.spentAmount = Math.max(0, total.spentAmount - tx.amount);
+                    try {
+                        await this.apiCall(`/api/budgets/${total.id}`, "PUT", { spentAmount: total.spentAmount });
+                    } catch (err) {
+                        console.error("Failed to update budget on server", err);
+                    }
+                }
+                this.saveModel("budgets");
+            }
+            this.renderAll();
+        }
+    }
+
+    async addSavingsGoal(name, targetAmount, currentAmount, targetDate, isEmergencyFund) {
+        if (isEmergencyFund) {
+            this.savingsGoals.forEach(g => {
+                if (g.isEmergencyFund) g.isEmergencyFund = false;
+            });
+        }
+        const goal = { name, targetAmount, currentAmount, targetDate, isEmergencyFund: isEmergencyFund ? 1 : 0 };
+        try {
+            const resp = await this.apiCall("/api/savings-goals", "POST", goal);
+            goal.id = resp.id;
+        } catch (err) {
+            console.error("Failed to add savings goal on server", err);
+            goal.id = Date.now();
+        }
+        goal.isEmergencyFund = Boolean(goal.isEmergencyFund);
+        this.savingsGoals.push(goal);
+        this.saveModel("goals");
+        this.renderAll();
+    }
+
+    async updateSavingsGoal(id, currentAmount) {
+        const goal = this.savingsGoals.find(g => g.id == id);
+        if (goal) {
+            try {
+                await this.apiCall(`/api/savings-goals/${id}`, "PUT", { currentAmount });
+            } catch (err) {
+                console.error("Failed to update savings goal on server", err);
+            }
+            goal.currentAmount = currentAmount;
+            this.saveModel("goals");
+            this.renderAll();
+        }
+    }
+
+    async deleteSavingsGoal(id) {
+        const idx = this.savingsGoals.findIndex(g => g.id == id);
+        if (idx !== -1) {
+            try {
+                await this.apiCall(`/api/savings-goals/${id}`, "DELETE");
+            } catch (err) {
+                console.error("Failed to delete savings goal on server", err);
+            }
+            this.savingsGoals.splice(idx, 1);
+            this.saveModel("goals");
+            this.renderAll();
+        }
+    }
+
+    async addBill(name, amount, dueDate, category) {
+        const bill = { name, amount, dueDate, isPaid: 0, category };
+        try {
+            const resp = await this.apiCall("/api/bills", "POST", bill);
+            bill.id = resp.id;
+        } catch (err) {
+            console.error("Failed to add bill on server", err);
+            bill.id = Date.now();
+        }
+        bill.isPaid = false;
+        this.bills.push(bill);
+        this.saveModel("bills");
+        this.renderAll();
+    }
+
+    async payBill(id) {
+        const bill = this.bills.find(b => b.id == id);
+        if (bill) {
+            try {
+                await this.apiCall(`/api/bills/${id}`, "PUT", { isPaid: 1 });
+            } catch (err) {
+                console.error("Failed to update bill on server", err);
+            }
+            bill.isPaid = true;
+            this.saveModel("bills");
+            
+            const todayStr = new Date().toISOString().substring(0, 10);
+            await this.addTransaction("EXPENSE", bill.category, bill.amount, todayStr, `Paid bill: ${bill.name}`);
+        }
+    }
+
+    async cancelSubscription(id) {
+        const sub = this.subscriptions.find(s => s.id == id);
+        if (sub) {
+            try {
+                await this.apiCall(`/api/subscriptions/${id}`, "PUT", { isForgotten: 0, status: "Cancelled" });
+            } catch (err) {
+                console.error("Failed to update subscription on server", err);
+            }
+            sub.isForgotten = false;
+            sub.status = "Cancelled";
+            this.saveModel("subscriptions");
+            
+            await this.addNotification(
+                "Subscription Decommissioned",
+                `Successfully cancelled ${sub.name}. Saving ₹${sub.cost} per month.`,
+                "LEAK_ALERT"
+            );
+            this.renderAll();
+        }
+    }
+
+    async keepSubscription(id) {
+        const sub = this.subscriptions.find(s => s.id == id);
+        if (sub) {
+            try {
+                await this.apiCall(`/api/subscriptions/${id}`, "PUT", { isForgotten: 0, status: "Active" });
+            } catch (err) {
+                console.error("Failed to update subscription on server", err);
+            }
+            sub.isForgotten = false;
+            sub.status = "Active";
+            this.saveModel("subscriptions");
+            this.renderAll();
+        }
+    }
+
+    async addSubscription(name, cost, billingCycle, nextRenewalDate, isForgotten, leakReason) {
+        const scoreImpact = isForgotten ? 20 : 0;
+        const sub = {
+            name,
+            cost,
+            billingCycle,
+            nextRenewalDate,
+            isForgotten: isForgotten ? 1 : 0,
+            status: "Active",
+            leakReason,
+            scoreImpact,
+            optimizationSuggestion: "Cancel immediately if not utilized."
+        };
+        try {
+            const resp = await this.apiCall("/api/subscriptions", "POST", sub);
+            sub.id = resp.id;
+        } catch (err) {
+            console.error("Failed to add subscription on server", err);
+            sub.id = Date.now();
+        }
+        sub.isForgotten = Boolean(sub.isForgotten);
+        this.subscriptions.push(sub);
+        this.saveModel("subscriptions");
+        this.renderAll();
+    }
+
+    async addInvestment(name, type, initialAmount, currentAmount, units) {
+        const purchaseDate = new Date().toISOString().substring(0, 10);
+        const item = { name, type, initialAmount, currentAmount, units, purchaseDate };
+        try {
+            const resp = await this.apiCall("/api/investments", "POST", item);
+            item.id = resp.id;
+        } catch (err) {
+            console.error("Failed to add investment on server", err);
+            item.id = Date.now();
+        }
+        this.investments.push(item);
+        this.saveModel("investments");
+        this.renderAll();
+    }
+
+    async updateInvestmentValue(id, currentAmount) {
+        const item = this.investments.find(i => i.id == id);
+        if (item) {
+            try {
+                await this.apiCall(`/api/investments/${id}`, "PUT", { currentAmount });
+            } catch (err) {
+                console.error("Failed to update investment on server", err);
+            }
+            item.currentAmount = currentAmount;
+            this.saveModel("investments");
+            this.renderAll();
+        }
+    }
+
+    async deleteInvestment(id) {
+        const idx = this.investments.findIndex(i => i.id == id);
+        if (idx !== -1) {
+            try {
+                await this.apiCall(`/api/investments/${id}`, "DELETE");
+            } catch (err) {
+                console.error("Failed to delete investment on server", err);
+            }
+            this.investments.splice(idx, 1);
+            this.saveModel("investments");
+            this.renderAll();
+        }
+    }
+
+    async addNotification(title, message, type) {
+        const notification = { title, message, type, timestamp: Date.now(), isRead: false };
+        try {
+            await this.apiCall("/api/notifications", "POST", notification);
+        } catch (err) {
+            console.error("Failed to add notification on server", err);
+        }
+        notification.id = Date.now();
+        this.notifications.unshift(notification);
+        this.saveModel("notifications");
+        this.renderTopBar();
+    }
+
+    async clearNotifications() {
+        try {
+            await this.apiCall("/api/notifications", "DELETE");
+        } catch (err) {
+            console.error("Failed to clear notifications on server", err);
+        }
+        this.notifications = [];
+        this.saveModel("notifications");
+        this.renderTopBar();
+    }
+
+    // --- BANK STATEMENT CSV PARSER ---
+    importStatementText(rawText) {
+        let importCount = 0;
+        const lines = rawText.split("\n");
+        const todayStr = new Date().toISOString().substring(0, 10);
+
+        lines.forEach(line => {
+            if (!line.trim()) return;
+            try {
+                let cleanLine = line;
+                cleanLine = cleanLine.replace(/\d{4}[-/]\d{2}[-/]\d{2}/g, "");
+                cleanLine = cleanLine.replace(/\d{2}[-/]\d{2}[-/]\d{4}/g, "");
+                cleanLine = cleanLine.replace(/\d{2}[-/]\d{2}[-/]\d{2}/g, "");
+                cleanLine = cleanLine.replace(/\b\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*/gi, "");
+                cleanLine = cleanLine.replace(/(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2}/gi, "");
+
+                const numbers = cleanLine.match(/\d+(\.\d+)?/g);
+                if (numbers && numbers.length > 0) {
+                    const amount = parseFloat(numbers[numbers.length - 1]);
+                    
+                    let category = "Uncategorized";
+                    const lower = line.toLowerCase();
+                    if (lower.includes("grocery") || lower.includes("supermarket") || lower.includes("food")) {
+                        category = "Groceries";
+                    } else if (lower.includes("salary") || lower.includes("paycheck") || lower.includes("deposit")) {
+                        category = "Salary";
+                    } else if (lower.includes("dining") || lower.includes("restaurant") || lower.includes("cafe")) {
+                        category = "Dining";
+                    } else if (lower.includes("uber") || lower.includes("gas") || lower.includes("taxi") || lower.includes("flight")) {
+                        category = "Utilities";
+                    } else if (lower.includes("netflix") || lower.includes("spotify") || lower.includes("hulu") || lower.includes("gym")) {
+                        category = "Entertainment";
+                    }
+
+                    const type = (category === "Salary" || lower.includes("credit") || lower.includes("income")) ? "INCOME" : "EXPENSE";
+                    const noteStr = line.trim();
+
+                    this.addTransaction(type, category, amount, todayStr, noteStr);
+                    importCount++;
+                }
+            } catch (e) {
+                // Ignore parse errors
+            }
+        });
+
+        return importCount;
+    }
+
+    // --- GEMINI CO-PILOT ADVISOR API CLIENT ---
+    async sendMessageToAdvisor(message) {
+        if (!message.trim()) return;
+
+        this.chatHistory.push({ message, isAdvisor: false });
+        this.isAnalyzing = true;
+        this.renderAdvisor();
+
+        let replyText = "";
+        try {
+            const resp = await this.apiCall("/api/chat", "POST", { prompt: message });
+            replyText = resp.reply;
+            this.chatHistory.push({ message: replyText, isAdvisor: true });
+        } catch (e) {
+            console.warn("Backend chat failed, falling back to local Gemini response", e);
+            const userName = this.user ? this.user.name : "User";
+            const totalSpent = this.transactions.filter(t => t.type === "EXPENSE").reduce((sum, t) => sum + t.amount, 0);
+            const totalIncome = this.transactions.filter(t => t.type === "INCOME").reduce((sum, t) => sum + t.amount, 0);
+            const leakySubs = this.subscriptions.filter(s => s.isForgotten && s.status === "Active");
+            const leakyList = leakySubs.map(s => `${s.name} (₹${s.cost}/mo)`).join(", ");
+
+            const prompt = `
+                The user asks: "${message}".
+                
+                Local Financial Context:
+                - Active User name: ${userName}
+                - Total June Expenses logged: ₹${totalSpent.toFixed(2)}
+                - Total June Income logged: ₹${totalIncome.toFixed(2)}
+                - Active leaking subscriptions detected: ${leakyList || "None"}
+                
+                Draft a direct, helpful, expert answer as ${userName}'s personal financial coach. Keep it highly practical, using clear bullet points. Avoid clinical jargon, do not reference file logs, and address the user directly.
+            `;
+
+            replyText = await this.fetchGeminiResponse(prompt);
+            this.chatHistory.push({ message: replyText, isAdvisor: true });
+        }
+        
+        this.isAnalyzing = false;
+        this.renderAdvisor();
+    }
+
+    async generateAdvisorAudit() {
+        this.isAnalyzing = true;
+        this.renderAdvisor();
+
+        let replyText = "";
+        try {
+            const prompt = "Please run a financial wellness audit on my current database and provide a summary of leaks and budgets.";
+            const resp = await this.apiCall("/api/chat", "POST", { prompt });
+            replyText = resp.reply;
+        } catch (e) {
+            console.warn("Backend audit chat failed, falling back to local Gemini audit", e);
+            const userName = this.user ? this.user.name : "User";
+            const totalSpent = this.transactions.filter(t => t.type === "EXPENSE").reduce((sum, t) => sum + t.amount, 0);
+            const totalIncome = this.transactions.filter(t => t.type === "INCOME").reduce((sum, t) => sum + t.amount, 0);
+            const leakySubs = this.subscriptions.filter(s => s.isForgotten && s.status === "Active");
+            const leakyList = leakySubs.map(s => `${s.name} (₹${s.cost}/mo, Reason: ${s.leakReason})`).join(", ");
+            
+            const currentBudgets = this.budgets.filter(b => b.monthYear === "2026-06");
+            const overspent = currentBudgets.filter(b => b.spentAmount > b.limitAmount).map(b => `${b.category} (Limit: ₹${b.limitAmount}, Spent: ₹${b.spentAmount})`).join(", ");
+
+            const prompt = `
+                You are Finoraax's Smart Financial Advisor Core.
+                Conduct a financial wellness assessment on ${userName}'s portfolio:
+                - Income: ₹${totalIncome.toFixed(2)}
+                - Spending: ₹${totalSpent.toFixed(2)}
+                - Flagged Subscription Leaks: ${leakyList || "None"}
+                - Overspent Budgets: ${overspent || "None"}
+                
+                Write an executive financial audit report. Under 3 bullet points, summarize:
+                1. Subscription Leak audit (mention specific costs saved if canceled)
+                2. Category Budget optimization (e.g. Dining/Groceries)
+                3. Projections for saving and emergency runway.
+                
+                Keep response encouraging, professional, and visually elegant.
+            `;
+
+            replyText = await this.fetchGeminiResponse(prompt);
+        }
+        
+        this.advisorAdvice = replyText;
+        this.isAnalyzing = false;
+        this.renderAdvisor();
+    }
+
+    async fetchGeminiResponse(prompt) {
+        try {
+            if (this.user && this.user.sessionToken) {
+                const requestPayload = {
+                    contents: [
+                        {
+                            parts: [{ text: prompt }]
+                        }
+                    ]
+                };
+                const resp = await this.apiCall("/v1beta/models/gemini-3.5-flash:generateContent", "POST", requestPayload);
+                return resp.candidates?.[0]?.content?.parts?.[0]?.text || "I was unable to analyze this data.";
+            }
+        } catch (proxyErr) {
+            console.warn("Backend proxy failed, attempting direct Gemini call or fallback", proxyErr);
+        }
+
+        if (!this.apiKey || this.apiKey === "MY_GEMINI_API_KEY") {
+            return this.getOfflineFallbackResponse(prompt);
+        }
+
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${this.apiKey}`;
+        const requestPayload = {
+            contents: [
+                {
+                    parts: [{ text: prompt }]
+                }
+            ]
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestPayload)
+            });
+
+            if (!response.ok) {
+                throw new Error("HTTP error " + response.status);
+            }
+
+            const data = await response.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text || "I was unable to analyze this data. Please review your parameters.";
+        } catch (e) {
+            console.error("Gemini API error:", e);
+            return this.getOfflineFallbackResponse(prompt);
+        }
+    }
+
+    getOfflineFallbackResponse(prompt) {
+        const lower = prompt.toLowerCase();
+        if (lower.includes("leak") || lower.includes("subscription")) {
+            return `🤖 **[FINORAAX INSIGHTS]**
+* **Forgotten Subscriptions Audit**: Finoraax detected continuous leaks in OTT plans. 'Abandoned Premium Gym Pass' is classified as critical leak (Cost: ₹55.00/mo, Usage: 0%). Optimizing today preserves ₹660.00 in annual net liquidity.
+* **AWS Test Servers**: Flagged unused test server node (Cost: ₹34.50/mo). Decommissioning now prevents upcoming billing cycles.`;
+        }
+        if (lower.includes("budget") || lower.includes("overspend")) {
+            return `🤖 **[FINORAAX BUDGET CO-PILOT]**
+* **Overspending Alerts**: Dining and entertainment categories are exceeding June benchmarks. 
+* **Recommendation**: I recommend cap settings of ₹200 for subsequent periods. Locking custom alerts at 85% capacity will preempt future budget strain.`;
+        }
+        if (lower.includes("savings") || lower.includes("emergency")) {
+            return `🤖 **[FINORAAX WEALTH STRATEGIST]**
+* **Runway Protection**: Your emergency portfolio registers at ₹8,400 (56% of your ₹15,000 threshold). 
+* **Optimized Goal Target**: Automating a ₹125 weekly base allocation from incoming streams will secure 6-month resilience by September.`;
+        }
+
+        return `🤖 **[FINORAAX INTELLIGENT ADVISOR]**
+* **Audit Overview**: I have audited your local database securely.
+* **Leak Check**: 3 forgotten subscriptions are draining ₹99.48 monthly.
+* **Surplus Routing**: Routing excess salary inflows into VOO index fund or your Emergency Fund is advised.
+* Let me know if you need specific advice on any item!`;
+    }
+
+    // --- OTHER HELPERS ---
+    formatCurrency(val) {
+        return val.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    parseSimpleMarkdown(text) {
+        let html = text;
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        html = html.replace(/^\*\s+(.*?)$/gm, '<li>$1</li>');
+        html = html.replace(/^(<li>.*?<\/li>\s*)+/gm, '<ul>$&</ul>');
+        html = html.replace(/\n\n/g, '</p><p>');
+        html = html.replace(/\n(?!<li|<\/ul|<\/ol)/g, '<br>');
+        return `<p>${html}</p>`.replace(/<p>\s*<\/p>/g, '');
+    }
+
+    // --- DOM INTERACTIVE BINDINGS ---
+    bindEvents() {
+        // Onboarding flow triggers
+        const privacyNext = document.getElementById("btn-privacy-next");
+        if (privacyNext) privacyNext.onclick = () => {
+            this.setCurrentStep(2);
+            this.toggleOnboardingSlide("leak");
+        };
+
+        const leakNext = document.getElementById("btn-leak-next");
+        if (leakNext) leakNext.onclick = () => {
+            this.setCurrentStep(3);
+            this.toggleOnboardingSlide("advisor");
+        };
+
+        const advisorNext = document.getElementById("btn-advisor-next");
+        if (advisorNext) advisorNext.onclick = () => {
+            this.setCurrentStep(4);
+            this.showScreen("auth-screen");
+            this.toggleAuthCard("login");
+        };
+
+        // Navigation card links
+        document.getElementById("link-go-to-register").onclick = (e) => {
+            e.preventDefault();
+            this.setCurrentStep(5);
+            this.toggleAuthCard("register");
+        };
+
+        document.getElementById("link-go-to-login").onclick = (e) => {
+            e.preventDefault();
+            this.setCurrentStep(4);
+            this.toggleAuthCard("login");
+        };
+
+        // Submit registration
+        document.getElementById("btn-register-submit").onclick = async () => {
+            const name = document.getElementById("register-name").value;
+            const email = document.getElementById("register-email").value;
+            const pin = document.getElementById("register-pin").value;
+            const errDiv = document.getElementById("register-error");
+
+            if (!name || !email || pin.length !== 4) {
+                errDiv.innerText = "Please fill completely. PIN must be 4 digits.";
+                return;
+            }
+            errDiv.innerText = "";
+            await this.registerProfile(name, email, pin);
+        };
+
+        // Submit login vault decrypt
+        document.getElementById("btn-login-submit").onclick = async () => {
+            const email = document.getElementById("login-email").value;
+            const pin = document.getElementById("login-pin").value;
+            const errDiv = document.getElementById("login-error");
+
+            if (!email || pin.length !== 4) {
+                errDiv.innerText = "Complete both fields. PIN must be 4 digits.";
+                return;
+            }
+            errDiv.innerText = "";
+            const err = await this.loginVault(email, pin);
+            if (err) {
+                errDiv.innerText = err;
+            }
+        };
+
+        // Tab Navigation click handlers
+        document.querySelectorAll(".nav-item").forEach((btn, idx) => {
+            btn.onclick = () => this.switchTab(idx);
+        });
+
+        // Overview health meter shortcut click
+        document.getElementById("btn-go-to-leak-detector").onclick = () => {
+            this.switchTab(4); // Leak detector tab
+        };
+
+        // Bell dropdown toggle
+        const btnBell = document.getElementById("btn-bell");
+        const menuBell = document.getElementById("notification-menu");
+        btnBell.onclick = (e) => {
+            e.stopPropagation();
+            menuBell.classList.toggle("active");
+        };
+        document.addEventListener("click", () => {
+            menuBell.classList.remove("active");
+        });
+        menuBell.onclick = (e) => e.stopPropagation();
+
+        // Clear notifications
+        document.getElementById("btn-clear-notifications").onclick = () => {
+            this.clearNotifications();
+        };
+
+        // Logout triggers
+        document.getElementById("btn-logout-trigger").onclick = () => this.logout();
+        document.getElementById("btn-settings-logout").onclick = () => this.logout();
+
+        // Modals opening/closing triggers
+        const modalOverlays = document.querySelectorAll(".modal-overlay");
+        const closeBtns = document.querySelectorAll(".modal-close-btn");
+        
+        closeBtns.forEach(btn => {
+            btn.onclick = () => {
+                modalOverlays.forEach(o => o.classList.remove("active"));
+            };
+        });
+
+        // Quick add buttons
+        document.getElementById("btn-quick-add-tx").onclick = () => {
+            document.getElementById("tx-amount").value = "";
+            document.getElementById("tx-note").value = "";
+            document.getElementById("tx-date").value = new Date().toISOString().substring(0, 10);
+            document.getElementById("tx-modal-error").innerText = "";
+            document.getElementById("modal-add-tx").classList.add("active");
+        };
+
+        document.getElementById("btn-quick-add-goal").onclick = () => {
+            document.getElementById("goal-name").value = "";
+            document.getElementById("goal-target").value = "";
+            document.getElementById("goal-current").value = "";
+            document.getElementById("goal-date").value = new Date().toISOString().substring(0, 10);
+            document.getElementById("goal-is-emergency").checked = false;
+            document.getElementById("goal-modal-error").innerText = "";
+            document.getElementById("modal-add-goal").classList.add("active");
+        };
+        
+        document.getElementById("btn-add-goal-shortcut").onclick = () => {
+            document.getElementById("btn-quick-add-goal").click();
+        };
+
+        // Save transaction
+        document.getElementById("btn-save-transaction").onclick = () => {
+            const type = document.querySelector('input[name="tx-type"]:checked').value;
+            const category = document.getElementById("tx-category").value;
+            const amount = parseFloat(document.getElementById("tx-amount").value);
+            const date = document.getElementById("tx-date").value;
+            const note = document.getElementById("tx-note").value;
+            const errDiv = document.getElementById("tx-modal-error");
+
+            if (isNaN(amount) || amount <= 0 || !date || !note.trim()) {
+                errDiv.innerText = "Please complete all fields correctly. Amount must be positive.";
+                return;
+            }
+
+            this.addTransaction(type, category, amount, date, note);
+            document.getElementById("modal-add-tx").classList.remove("active");
+        };
+
+        // Save goal
+        document.getElementById("btn-save-goal").onclick = () => {
+            const name = document.getElementById("goal-name").value;
+            const target = parseFloat(document.getElementById("goal-target").value);
+            const current = parseFloat(document.getElementById("goal-current").value);
+            const date = document.getElementById("goal-date").value;
+            const isEmergency = document.getElementById("goal-is-emergency").checked;
+            const errDiv = document.getElementById("goal-modal-error");
+
+            if (!name.trim() || isNaN(target) || target <= 0 || isNaN(current) || current < 0 || !date) {
+                errDiv.innerText = "Please verify goal inputs. Target and current amounts must be positive.";
+                return;
+            }
+
+            this.addSavingsGoal(name, target, current, date, isEmergency);
+            document.getElementById("modal-add-goal").classList.remove("active");
+        };
+
+        // Bank Statement Importer Toggle
+        const btnToggleImporter = document.getElementById("btn-toggle-importer");
+        const importerBody = document.getElementById("importer-body");
+        const iconImporter = document.getElementById("icon-importer-state");
+        btnToggleImporter.onclick = () => {
+            if (importerBody.style.display === "none") {
+                importerBody.style.display = "flex";
+                iconImporter.innerHTML = `<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>`;
+            } else {
+                importerBody.style.display = "none";
+                iconImporter.innerHTML = `<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>`;
+            }
+        };
+
+        // Importer parse trigger
+        document.getElementById("btn-parse-statement").onclick = () => {
+            const text = document.getElementById("statement-paste-area").value;
+            const resDiv = document.getElementById("import-result");
+            if (!text.trim()) {
+                resDiv.innerText = "Selected paste area is empty.";
+                resDiv.className = "import-msg text-red";
+                return;
+            }
+
+            const count = this.importStatementText(text);
+            resDiv.innerText = `Successfully imported ${count} records to local sandbox!`;
+            resDiv.className = "import-msg text-green";
+            document.getElementById("statement-paste-area").value = "";
+        };
+
+        // Table actions delegation
+        document.getElementById("ledger-table-body").onclick = (e) => {
+            if (e.target.classList.contains("btn-delete-tx")) {
+                const id = e.target.getAttribute("data-id");
+                if (confirm("Delete this transaction entry?")) {
+                    this.deleteTransaction(id);
+                }
+            }
+        };
+
+        document.getElementById("ledger-filter-type").onchange = () => {
+            this.renderLedger();
+        };
+
+        // Savings goals click updates / removal
+        document.getElementById("savings-goals-grid").onclick = (e) => {
+            const id = e.target.getAttribute("data-id");
+            if (e.target.classList.contains("btn-delete-goal")) {
+                if (confirm("Remove this savings goal?")) {
+                    this.deleteSavingsGoal(id);
+                }
+            } else if (e.target.classList.contains("btn-update-goal")) {
+                const goal = this.savingsGoals.find(g => g.id == id);
+                if (goal) {
+                    document.getElementById("update-goal-id").value = goal.id;
+                    document.getElementById("update-goal-title").innerText = `Update Capital Allocated for: ${goal.name}`;
+                    document.getElementById("update-goal-amount").value = goal.currentAmount;
+                    document.getElementById("update-goal-error").innerText = "";
+                    document.getElementById("modal-update-goal").classList.add("active");
+                }
+            }
+        };
+
+        // Update goal save
+        document.getElementById("btn-submit-update-goal").onclick = () => {
+            const id = document.getElementById("update-goal-id").value;
+            const amount = parseFloat(document.getElementById("update-goal-amount").value);
+            const errDiv = document.getElementById("update-goal-error");
+
+            if (isNaN(amount) || amount < 0) {
+                errDiv.innerText = "Please specify a positive capital value.";
+                return;
+            }
+
+            this.updateSavingsGoal(id, amount);
+            document.getElementById("modal-update-goal").classList.remove("active");
+        };
+
+        // Calendar Prev / Next Months triggers
+        document.getElementById("btn-prev-month").onclick = () => {
+            let [y, m] = this.calendarMonth.split("-").map(Number);
+            m--;
+            if (m < 1) { m = 12; y--; }
+            this.calendarMonth = `${y}-${String(m).padStart(2, '0')}`;
+            this.renderCalendar();
+        };
+
+        document.getElementById("btn-next-month").onclick = () => {
+            let [y, m] = this.calendarMonth.split("-").map(Number);
+            m++;
+            if (m > 12) { m = 1; y++; }
+            this.calendarMonth = `${y}-${String(m).padStart(2, '0')}`;
+            this.renderCalendar();
+        };
+
+        // Add bill modal triggers
+        document.getElementById("btn-add-bill").onclick = () => {
+            document.getElementById("bill-name").value = "";
+            document.getElementById("bill-amount").value = "";
+            document.getElementById("bill-date").value = new Date().toISOString().substring(0, 10);
+            document.getElementById("bill-modal-error").innerText = "";
+            document.getElementById("modal-add-bill").classList.add("active");
+        };
+
+        document.getElementById("btn-save-bill").onclick = () => {
+            const name = document.getElementById("bill-name").value;
+            const amount = parseFloat(document.getElementById("bill-amount").value);
+            const date = document.getElementById("bill-date").value;
+            const category = document.getElementById("bill-category").value;
+            const errDiv = document.getElementById("bill-modal-error");
+
+            if (!name.trim() || isNaN(amount) || amount <= 0 || !date) {
+                errDiv.innerText = "Verify bill fields. Amount must be positive.";
+                return;
+            }
+
+            this.addBill(name, amount, date, category);
+            document.getElementById("modal-add-bill").classList.remove("active");
+        };
+
+        // Bills List Pay trigger delegation
+        document.getElementById("upcoming-bills-list").onclick = (e) => {
+            if (e.target.classList.contains("btn-pay-bill")) {
+                const id = e.target.getAttribute("data-id");
+                if (confirm("Confirm payment of this bill?")) {
+                    this.payBill(id);
+                }
+            }
+        };
+
+        // Subscriptions buttons triggers
+        document.getElementById("btn-add-subscription").onclick = () => {
+            document.getElementById("sub-name").value = "";
+            document.getElementById("sub-cost").value = "";
+            document.getElementById("sub-renewal").value = new Date().toISOString().substring(0, 10);
+            document.getElementById("sub-is-forgotten").checked = false;
+            document.getElementById("sub-leak-reason-group").style.display = "none";
+            document.getElementById("sub-leak-reason").value = "";
+            document.getElementById("sub-modal-error").innerText = "";
+            document.getElementById("modal-add-sub").classList.add("active");
+        };
+
+        document.getElementById("sub-is-forgotten").onchange = (e) => {
+            document.getElementById("sub-leak-reason-group").style.display = e.target.checked ? "block" : "none";
+        };
+
+        document.getElementById("btn-save-subscription").onclick = () => {
+            const name = document.getElementById("sub-name").value;
+            const cost = parseFloat(document.getElementById("sub-cost").value);
+            const cycle = document.getElementById("sub-cycle").value;
+            const date = document.getElementById("sub-renewal").value;
+            const isForgotten = document.getElementById("sub-is-forgotten").checked;
+            const reason = document.getElementById("sub-leak-reason").value;
+            const errDiv = document.getElementById("sub-modal-error");
+
+            if (!name.trim() || isNaN(cost) || cost <= 0 || !date || (isForgotten && !reason.trim())) {
+                errDiv.innerText = "Verify subscription details. Reason required if leak flag checked.";
+                return;
+            }
+
+            this.addSubscription(name, cost, cycle, date, isForgotten, reason);
+            document.getElementById("modal-add-sub").classList.remove("active");
+        };
+
+        // Cancel / Keep plan bindings
+        document.getElementById("subscriptions-list-container").onclick = (e) => {
+            const id = e.target.getAttribute("data-id");
+            if (e.target.classList.contains("btn-cancel-sub")) {
+                if (confirm("Decommission this autopay subscription plan?")) {
+                    this.cancelSubscription(id);
+                }
+            } else if (e.target.classList.contains("btn-keep-sub")) {
+                this.keepSubscription(id);
+            }
+        };
+
+        // Chat send trigger
+        const chatInput = document.getElementById("advisor-chat-input");
+        document.getElementById("btn-send-message").onclick = () => {
+            const val = chatInput.value;
+            if (val.trim()) {
+                this.sendMessageToAdvisor(val);
+                chatInput.value = "";
+            }
+        };
+        chatInput.onkeydown = (e) => {
+            if (e.key === "Enter") {
+                document.getElementById("btn-send-message").click();
+            }
+        };
+
+        // Recommendations wellness audit trigger
+        document.getElementById("btn-generate-advisor-audit").onclick = () => {
+            this.generateAdvisorAudit();
+        };
+
+        // Investments card list updates / delete
+        document.getElementById("vault-investments-list").onclick = (e) => {
+            const id = e.target.getAttribute("data-id");
+            if (e.target.classList.contains("btn-delete-invest")) {
+                if (confirm("Delete this investment tracker?")) {
+                    this.deleteInvestment(id);
+                }
+            } else if (e.target.classList.contains("btn-update-invest")) {
+                const item = this.investments.find(i => i.id == id);
+                if (item) {
+                    document.getElementById("update-invest-id").value = item.id;
+                    document.getElementById("update-invest-title").innerText = `Update Valuation for: ${item.name}`;
+                    document.getElementById("update-invest-amount").value = item.currentAmount;
+                    document.getElementById("update-invest-error").innerText = "";
+                    document.getElementById("modal-update-invest").classList.add("active");
+                }
+            }
+        };
+
+        // Update investment save
+        document.getElementById("btn-submit-update-invest").onclick = () => {
+            const id = document.getElementById("update-invest-id").value;
+            const amount = parseFloat(document.getElementById("update-invest-amount").value);
+            const errDiv = document.getElementById("update-invest-error");
+
+            if (isNaN(amount) || amount < 0) {
+                errDiv.innerText = "Please specify a positive valuation value.";
+                return;
+            }
+
+            this.updateInvestmentValue(id, amount);
+            document.getElementById("modal-update-invest").classList.remove("active");
+        };
+
+        // Add investment modal
+        document.getElementById("btn-add-investment").onclick = () => {
+            document.getElementById("invest-name").value = "";
+            document.getElementById("invest-init").value = "";
+            document.getElementById("invest-current").value = "";
+            document.getElementById("invest-units").value = "";
+            document.getElementById("invest-modal-error").innerText = "";
+            document.getElementById("modal-add-investment").classList.add("active");
+        };
+
+        document.getElementById("btn-save-investment").onclick = () => {
+            const name = document.getElementById("invest-name").value;
+            const type = document.getElementById("invest-type").value;
+            const init = parseFloat(document.getElementById("invest-init").value);
+            const current = parseFloat(document.getElementById("invest-current").value);
+            const units = parseFloat(document.getElementById("invest-units").value);
+            const errDiv = document.getElementById("invest-modal-error");
+
+            if (!name.trim() || isNaN(init) || init <= 0 || isNaN(current) || current <= 0 || isNaN(units) || units <= 0) {
+                errDiv.innerText = "Verify investment inputs. All numbers must be positive.";
+                return;
+            }
+
+            this.addInvestment(name, type, init, current, units);
+            document.getElementById("modal-add-investment").classList.remove("active");
+        };
+
+        // Save API key config
+        document.getElementById("vault-api-key-input").onchange = (e) => {
+            this.apiKey = e.target.value.trim();
+            db.set("api_key", this.apiKey);
+        };
+
+        // Sandbox reset trigger
+        document.getElementById("btn-reseed-db-trigger").onclick = async () => {
+            if (confirm("Reset database sandbox? This will replace your local and server entries with the default demo records.")) {
+                try {
+                    await this.apiCall("/api/transactions", "GET");
+                    for (const tx of this.transactions) {
+                        await this.apiCall(`/api/transactions/${tx.id}`, "DELETE").catch(() => {});
+                    }
+                    for (const g of this.savingsGoals) {
+                        await this.apiCall(`/api/savings-goals/${g.id}`, "DELETE").catch(() => {});
+                    }
+                    for (const b of this.bills) {
+                        await this.apiCall(`/api/bills/${b.id}`, "DELETE").catch(() => {});
+                    }
+                    for (const s of this.subscriptions) {
+                        await this.apiCall(`/api/subscriptions/${s.id}`, "DELETE").catch(() => {});
+                    }
+                    for (const i of this.investments) {
+                        await this.apiCall(`/api/investments/${i.id}`, "DELETE").catch(() => {});
+                    }
+                } catch (err) {
+                    console.warn("Could not clear backend database", err);
+                }
+                
+                this.seedSandbox();
+                await this.seedDefaultsToBackend();
+                this.renderAll();
+                this.switchTab(0);
+                alert("Database sandbox successfully re-seeded.");
+            }
+        };
+    }
+}
+
+// --- INSTANTIATE APP ENGINE ---
+window.onload = () => {
+    window.app = new FinoraaxApplication();
+    window.app.init();
+};
+
+</script>
+</body>
+</html>
