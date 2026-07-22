@@ -5,3 +5,4 @@ selenium
 Appium-Python-Client
 pytest
 webdriver-manager
+locust

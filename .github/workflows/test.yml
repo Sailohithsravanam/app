@@ -1,4 +1,4 @@
-name: Finoraax CI & E2E Testing Suite (Appium & Selenium)
+name: Finoraax CI, E2E & Load Testing Suite (Appium, Selenium & Load Tests)
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install Python Dependencies (Selenium & Appium Client)
+      - name: Install Python Dependencies (Selenium, Appium Client & Locust)
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -67,12 +67,22 @@ jobs:
       - name: Run 300 Appium Mobile Test Cases
         run: python -m pytest tests/test_appium_suite.py -v || true
 
-      - name: Run E2E Integration Pipeline & Generate Excel Report
+      - name: Run 300 Load & Performance Test Cases & Generate Separate Load Report
+        run: python run_load_tests.py
+
+      - name: Run E2E Integration Pipeline & Generate E2E Excel Report
         run: python run_e2e_tests.py
 
-      - name: Upload Test Report Artifact
+      - name: Upload E2E Test Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: E2E-Test-Report-Finoraax
           path: E2E_Test_Report_Finoraax.xlsx
+
+      - name: Upload Separate Load Test Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Load-Test-Report-Finoraax
+          path: Load_Test_Report_Finoraax.xlsx
