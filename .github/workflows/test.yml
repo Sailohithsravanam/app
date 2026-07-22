@@ -1,4 +1,4 @@
-name: Finoraax Full Testing & Compliance Pipeline (E2E, Load & Security)
+name: Vulnerability Security Test
 
 on:
   push:
@@ -67,7 +67,7 @@ jobs:
       - name: Run 300 Appium Mobile Test Cases
         run: python -m pytest tests/test_appium_suite.py -v || true
 
-      - name: Run 300 Security Verification Test Cases & Generate Security Report
+      - name: Run 300 Vulnerability Security Test Cases & Generate Security Report
         run: python run_security_compliance_tests.py
 
       - name: Run 300 Load & Performance Test Cases & Generate Separate Load Report
@@ -90,9 +90,9 @@ jobs:
           name: Load-Test-Report-Finoraax
           path: Load_Test_Report_Finoraax.xlsx
 
-      - name: Upload Security Report Artifact
+      - name: Upload Vulnerability Security Report Artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Security-Report-Finoraax
+          name: Vulnerability-Security-Report-Finoraax
           path: Security_Report_Finoraax.xlsx
