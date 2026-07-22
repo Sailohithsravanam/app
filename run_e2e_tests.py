@@ -946,6 +946,21 @@ TEST_CASES = [
     }
 ]
 
+# --- LOAD SELENIUM & APPIUM TEST CASES (300 EACH) ---
+try:
+    from tests.test_selenium_suite import SELENIUM_TEST_CASES
+    TEST_CASES.extend(SELENIUM_TEST_CASES)
+    print(f"Loaded {len(SELENIUM_TEST_CASES)} Selenium test cases into catalog.")
+except Exception as e:
+    print(f"Notice: Could not load SELENIUM_TEST_CASES: {e}")
+
+try:
+    from tests.test_appium_suite import APPIUM_TEST_CASES
+    TEST_CASES.extend(APPIUM_TEST_CASES)
+    print(f"Loaded {len(APPIUM_TEST_CASES)} Appium test cases into catalog.")
+except Exception as e:
+    print(f"Notice: Could not load APPIUM_TEST_CASES: {e}")
+
 # --- EXECUTE AUTOMATED TESTS DYNAMICALLY ---
 def run_dynamic_tests():
     print("\n--- Running Dynamic API & Integration Tests ---")
@@ -1502,8 +1517,10 @@ def generate_excel_report():
         cell.alignment = Alignment(horizontal="center")
         cell.border = Border(bottom=Side(style='medium'))
         
-    types = ["UI/UX", "Functional", "Unit", "Validation", "Security"]
-    for i, t in enumerate(types):
+    types = ["UI/UX", "Functional", "Unit", "Validation", "Security", "Performance", "Appium Mobile", "Selenium Web"]
+    # Collect any extra types present in TEST_CASES dynamically
+    all_types = list(dict.fromkeys(types + [tc.get("type", "Other") for tc in TEST_CASES]))
+    for i, t in enumerate(all_types):
         r = 15 + i
         t_total = sum(1 for tc in TEST_CASES if tc["type"] == t)
         t_passed = sum(1 for tc in TEST_CASES if tc["type"] == t and tc["status"] == "PASSED")
