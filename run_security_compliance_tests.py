@@ -26,8 +26,8 @@ def run_security_compliance_verifications():
     print("All 300 Defensive Security & Compliance controls verified successfully.")
 
 def generate_security_excel_report():
-    output_filename = "Security_Report_Finoraax.xlsx"
-    print(f"\nCompiling standalone Security Verification Report: {output_filename}...")
+    output_filename = "Vulnerability_Security_Report_Finoraax.xlsx"
+    print(f"\nCompiling standalone Vulnerability Security Report: {output_filename}...")
     wb = openpyxl.Workbook()
     
     # 1. SUMMARY DASHBOARD SHEET
@@ -47,7 +47,7 @@ def generate_security_excel_report():
     font_value = Font(name="Segoe UI", size=10)
     
     # Header block
-    ws_summary["B2"] = "FINORAAX SECURE VAULT - SECURITY VERIFICATION REPORT"
+    ws_summary["B2"] = "FINORAAX SECURE VAULT - VULNERABILITY SECURITY TEST REPORT"
     ws_summary["B2"].font = font_title
     
     ws_summary["B3"] = "Privacy-First Compliance, Authentication, Data Protection & Security Controls Audit"
