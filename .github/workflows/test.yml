@@ -1,4 +1,4 @@
-name: Vulnerability Security Test
+name: finoraax testing
 
 on:
   push:
