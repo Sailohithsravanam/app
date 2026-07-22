@@ -1,4 +1,4 @@
-name: Finoraax CI, E2E & Load Testing Suite (Appium, Selenium & Load Tests)
+name: Finoraax Full Testing & Compliance Pipeline (E2E, Load & Security)
 
 on:
   push:
@@ -67,6 +67,9 @@ jobs:
       - name: Run 300 Appium Mobile Test Cases
         run: python -m pytest tests/test_appium_suite.py -v || true
 
+      - name: Run 300 Defensive Security & Compliance Test Cases & Generate Security Report
+        run: python run_security_compliance_tests.py
+
       - name: Run 300 Load & Performance Test Cases & Generate Separate Load Report
         run: python run_load_tests.py
 
@@ -86,3 +89,10 @@ jobs:
         with:
           name: Load-Test-Report-Finoraax
           path: Load_Test_Report_Finoraax.xlsx
+
+      - name: Upload Defensive Security & Compliance Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Security-Compliance-Report-Finoraax
+          path: Security_Compliance_Report_Finoraax.xlsx
