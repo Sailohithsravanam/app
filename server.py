@@ -308,12 +308,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-# Initialize DB on import/startup
-try:
-    init_db()
-except Exception as _e:
-    print("[INIT DB NOTICE]:", _e)
-
 # Load API key helper
 def load_api_key(name="GEMINI_API_KEY"):
     key = os.environ.get(name, "")
@@ -1347,4 +1341,8 @@ def status():
     })
 
 if __name__ == "__main__":
+    try:
+        init_db()
+    except Exception:
+        pass
     app.run(host="0.0.0.0", port=5000)
