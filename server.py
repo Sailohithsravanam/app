@@ -22,8 +22,10 @@ def handle_exception(e):
 def index_page():
     return send_from_directory(".", "index.html")
 
+import tempfile
+
 # Basic configuration
-DB_FILE = ":memory:"
+DB_FILE = os.path.join(tempfile.gettempdir(), "finoraax.db")
 ENV_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
 
 # Helper to format row dictionary to camelCase and cast booleans
