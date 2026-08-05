@@ -469,7 +469,7 @@ def auth_required(f):
     def decorated(*args, **kwargs):
         try:
             if request.method == "OPTIONS":
-                return f(*args, **kwargs)
+                return jsonify({"status": "ok"}), 200
                 
             token = request.headers.get("Authorization")
             if not token:
