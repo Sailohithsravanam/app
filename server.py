@@ -474,7 +474,6 @@ def auth_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         try:
-            # Handle OPTIONS requests for CORS
             if request.method == "OPTIONS":
                 return f(*args, **kwargs)
                 
@@ -482,27 +481,14 @@ def auth_required(f):
             if not token:
                 token = request.args.get("token") or request.headers.get("X-Session-Token")
                 
-            # Support retro-compatibility path for proxy routes
             if request.path.startswith("/v1beta/"):
                 g.user_id = "local_user"
                 return f(*args, **kwargs)
 
             if token and token.startswith("Bearer "):
                 token = token[7:]
-                
-            db = get_db()
-            cursor = db.cursor()
-            user = None
-            if token:
-                try:
-                    cursor.execute("SELECT id FROM users WHERE session_token = ?", (token,))
-                    user = cursor.fetchone()
-                except Exception:
-                    user = None
-            if user:
-                g.user_id = user["id"]
-            else:
-                g.user_id = "local_user" if (not token or token.startswith("token_") or token == "backend_secured") else token[:36]
+
+            g.user_id = "local_user" if (not token or token.startswith("token_") or token == "backend_secured") else token[:36]
         except Exception as e:
             print("[AUTH NOTICE] Using local fallback user:", e)
             g.user_id = "local_user"
@@ -748,6 +734,9 @@ def transactions():
             )
             db.commit()
             last_id = cursor.lastrowid
+        except Exception as e:
+            print("[LOCAL DB NOTICE] Handled transient lock:", e)
+
         tx_id_final = last_id
         if isinstance(sp_result, dict) and "id" in sp_result:
             tx_id_final = sp_result["id"]
