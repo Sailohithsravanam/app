@@ -746,11 +746,14 @@ def transactions():
             )
             db.commit()
             last_id = cursor.lastrowid
-        except Exception as e:
-            print("[LOCAL DB NOTICE] Handled transient lock:", e)
+        tx_id_final = last_id
+        if isinstance(sp_result, dict) and "id" in sp_result:
+            tx_id_final = sp_result["id"]
+        elif isinstance(sp_result, list) and len(sp_result) > 0 and isinstance(sp_result[0], dict) and "id" in sp_result[0]:
+            tx_id_final = sp_result[0]["id"]
 
         return jsonify({
-            "id": sp_result[0]["id"] if (sp_result and isinstance(sp_result, list) and len(sp_result) > 0) else last_id,
+            "id": tx_id_final,
             "status": "success"
         }), 201
 
