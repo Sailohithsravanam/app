@@ -63,36 +63,47 @@ import java.util.Date
 import java.util.Locale
 
 // ============================================================================
-// 1. COLORS, TYPOGRAPHY & THEMES
+// 1. COLORS, TYPOGRAPHY & THEMES (GLASSMORPHISM FINTECH MOBILE THEME)
 // ============================================================================
 
-val ObsidianBackground = Color(0xFF0C0E10)
-val ObsidianCard = Color(0xFF181B1F)
-val GoldPrimary = Color(0xFFD4AF37)
-val GoldSecondary = Color(0xFFC5A059)
-val WarmText = Color(0xFFF5F5F2)
-val MutedText = Color(0xFF8E929A)
-val JadeGreen = Color(0xFF10B981)
-val RubyRed = Color(0xFFEF4444)
+val DeepNavyBackground = Color(0xFF0F172A)
+val RoyalBlueGradient = Color(0xFF1E3A8A)
+val CyanPrimary = Color(0xFF06B6D4)
+val EmeraldAccent = Color(0xFF10B981)
+val SoftPurpleHighlight = Color(0xFF8B5CF6)
+val GlassCardBackground = Color(0x24FFFFFF)
+val GlassCardBorder = Color(0x3BFFFFFF)
+val WhiteText = Color(0xFFFFFFFF)
+val LightGrayText = Color(0xFFCBD5E1)
+val SlateMutedText = Color(0xFF94A3B8)
+val RubyRed = Color(0xFFF43F5E)
 
-// Keep the old aliases to prevent compile errors
-val SageGreen = GoldPrimary
-val SoftSage = GoldSecondary
-val SageBackground = ObsidianBackground
-val SageWhiteCard = ObsidianCard
-val YellowAccent = GoldPrimary
+val ObsidianBackground = DeepNavyBackground
+val ObsidianCard = GlassCardBackground
+val GoldPrimary = CyanPrimary
+val GoldSecondary = SoftPurpleHighlight
+val WarmText = WhiteText
+val MutedText = LightGrayText
+val JadeGreen = EmeraldAccent
+
+// Keep existing aliases for backwards compatibility
+val SageGreen = EmeraldAccent
+val SoftSage = Color(0xFF6EE7B7)
+val SageBackground = DeepNavyBackground
+val SageWhiteCard = GlassCardBackground
+val YellowAccent = SoftPurpleHighlight
 val AlertRed = RubyRed
-val SagePrimaryText = WarmText
-val SageSecondaryText = MutedText
+val SagePrimaryText = WhiteText
+val SageSecondaryText = LightGrayText
 
 // Dark version alternatives for contrast depth
-val DarkSageGreen = GoldPrimary
-val DarkSageBackground = ObsidianBackground
-val DarkSageCard = ObsidianCard
-val DarkSageText = WarmText
-val DarkSageTextSecondary = MutedText
+val DarkSageGreen = CyanPrimary
+val DarkSageBackground = DeepNavyBackground
+val DarkSageCard = GlassCardBackground
+val DarkSageText = WhiteText
+val DarkSageTextSecondary = LightGrayText
 
-// Set of Material typography styles to start with
+// Set of Material typography styles
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -104,31 +115,31 @@ val Typography = Typography(
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DarkSageGreen,
-    onPrimary = SageBackground,
-    secondary = SoftSage,
-    onSecondary = DarkSageText,
-    background = DarkSageBackground,
-    onBackground = DarkSageText,
-    surface = DarkSageCard,
-    onSurface = DarkSageText,
-    error = AlertRed,
-    onError = SagePrimaryText,
-    outline = DarkSageTextSecondary
+    primary = CyanPrimary,
+    onPrimary = WhiteText,
+    secondary = SoftPurpleHighlight,
+    onSecondary = WhiteText,
+    background = DeepNavyBackground,
+    onBackground = WhiteText,
+    surface = GlassCardBackground,
+    onSurface = WhiteText,
+    error = RubyRed,
+    onError = WhiteText,
+    outline = GlassCardBorder
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = SageGreen,
-    onPrimary = SageWhiteCard,
-    secondary = SoftSage,
-    onSecondary = SagePrimaryText,
-    background = SageBackground,
-    onBackground = SagePrimaryText,
-    surface = SageWhiteCard,
-    onSurface = SagePrimaryText,
-    error = AlertRed,
-    onError = SageWhiteCard,
-    outline = SageSecondaryText
+private val LightColorScheme = darkColorScheme(
+    primary = CyanPrimary,
+    onPrimary = WhiteText,
+    secondary = EmeraldAccent,
+    onSecondary = WhiteText,
+    background = DeepNavyBackground,
+    onBackground = WhiteText,
+    surface = GlassCardBackground,
+    onSurface = WhiteText,
+    error = RubyRed,
+    onError = WhiteText,
+    outline = GlassCardBorder
 )
 
 @Composable
