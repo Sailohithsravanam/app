@@ -12,9 +12,11 @@ app = Flask(__name__, static_folder=".", static_url_path="")
 @app.errorhandler(Exception)
 def handle_exception(e):
     tb = traceback.format_exc()
-    print("--- UNHANDLED SERVER EXCEPTION ---")
-    print(tb)
-    return jsonify({"error": str(e), "traceback": tb}), 500
+    try:
+        print("--- UNHANDLED SERVER EXCEPTION ---", str(e))
+    except Exception:
+        pass
+    return jsonify({"error": str(e), "traceback": str(tb)}), 500
 
 @app.route("/")
 def index_page():
@@ -322,8 +324,8 @@ def load_api_key(name="GEMINI_API_KEY"):
     return key
 
 # --- SUPABASE INTEGRATION ENGINE ---
-SUPABASE_URL = os.environ.get("VITE_SUPABASE_URL", "https://pbgghdlfmncaozfhoqyf.supabase.co")
-SUPABASE_KEY = os.environ.get("VITE_SUPABASE_ANON_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiZ2doZGxmbW5jYW96ZmhvcXlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3NzY2MjUsImV4cCI6MjEwMDM1MjYyNX0.0dK6VKh9AUE4OvcPtY9nyXveXVxAqsWagYz8zChN4qI")
+SUPABASE_URL = load_api_key("VITE_SUPABASE_URL") or os.environ.get("VITE_SUPABASE_URL", "https://pbgghdlfmncaozfhoqyf.supabase.co")
+SUPABASE_KEY = load_api_key("VITE_SUPABASE_ANON_KEY") or os.environ.get("VITE_SUPABASE_ANON_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBiZ2doZGxmbW5jYW96ZmhvcXlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ3NzY2MjUsImV4cCI6MjEwMDM1MjYyNX0.0dK6VKh9AUE4OvcPtY9nyXveXVxAqsWagYz8zChN4qI")
 
 def sync_to_supabase(table, payload):
     headers = {
