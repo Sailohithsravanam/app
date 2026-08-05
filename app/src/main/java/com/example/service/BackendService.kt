@@ -241,7 +241,7 @@ interface BackendApiService {
 }
 
 object BackendClient {
-    private const val BASE_URL = "http://10.0.2.2:5000/"
+    private const val BASE_URL = "https://backend-h2ns.onrender.com/"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -354,7 +354,7 @@ interface GeminiApiService {
 
 object GeminiClient {
     private const val TAG = "GeminiClient"
-    private const val BASE_URL = "http://10.0.2.2:5000/"
+    private const val BASE_URL = "https://backend-h2ns.onrender.com/"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
