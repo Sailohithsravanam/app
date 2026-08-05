@@ -471,28 +471,32 @@ def build_financial_context(user_id):
 def auth_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        # Handle OPTIONS requests for CORS
-        if request.method == "OPTIONS":
-            return f(*args, **kwargs)
-            
-        token = request.headers.get("Authorization")
-        if not token:
-            token = request.args.get("token") or request.headers.get("X-Session-Token")
-            
-        # Support retro-compatibility path for proxy routes
-        if request.path.startswith("/v1beta/"):
-            g.user_id = "local_user"
-            return f(*args, **kwargs)
-
         try:
+            # Handle OPTIONS requests for CORS
+            if request.method == "OPTIONS":
+                return f(*args, **kwargs)
+                
+            token = request.headers.get("Authorization")
+            if not token:
+                token = request.args.get("token") or request.headers.get("X-Session-Token")
+                
+            # Support retro-compatibility path for proxy routes
+            if request.path.startswith("/v1beta/"):
+                g.user_id = "local_user"
+                return f(*args, **kwargs)
+
             if token and token.startswith("Bearer "):
                 token = token[7:]
+                
             db = get_db()
             cursor = db.cursor()
             user = None
             if token:
-                cursor.execute("SELECT id FROM users WHERE session_token = ?", (token,))
-                user = cursor.fetchone()
+                try:
+                    cursor.execute("SELECT id FROM users WHERE session_token = ?", (token,))
+                    user = cursor.fetchone()
+                except Exception:
+                    user = None
             if user:
                 g.user_id = user["id"]
             else:
