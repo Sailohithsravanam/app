@@ -7,41 +7,57 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
 :root {
-    /* Color Tokens from Finoraax Android Theme */
-    --color-sage-bg: #13171b;
-    --color-obsidian-bg: #090a0c;
-    --color-obsidian-card: #1c2125;
-    --color-sage-white-card: #24292e;
-    --color-sage-primary-text: #f0f3f5;
-    --color-sage-secondary-text: #8fa2ad;
-    --color-warm-text: #faf8f5;
-    --color-muted-text: #708090;
+    /* Premium Glassmorphism Mobile Fintech Palette Tokens */
+    --color-bg-navy: #0F172A;
+    --color-gradient-blue: #1E3A8A;
+    --color-cyan-primary: #06B6D4;
+    --color-emerald-accent: #10B981;
+    --color-purple-highlight: #8B5CF6;
+    --color-white-text: #FFFFFF;
+    --color-light-gray-text: #CBD5E1;
+
+    /* Theme Tokens Mapping */
+    --color-sage-bg: #0F172A;
+    --color-obsidian-bg: #0B1120;
+    --color-obsidian-card: rgba(30, 41, 59, 0.45);
+    --color-sage-white-card: rgba(255, 255, 255, 0.08);
+    --color-sage-primary-text: #FFFFFF;
+    --color-sage-secondary-text: #CBD5E1;
+    --color-warm-text: #FFFFFF;
+    --color-muted-text: #94A3B8;
     
-    --color-sage-green: #4caf50;
-    --color-jade-green: #2e7d32;
-    --color-soft-sage: #a1c1a1;
-    --color-alert-red: #ef5350;
-    --color-ruby-red: #b71c1c;
+    --color-sage-green: #10B981;
+    --color-jade-green: #059669;
+    --color-soft-sage: #6EE7B7;
+    --color-alert-red: #F43F5E;
+    --color-ruby-red: #E11D48;
     
-    --color-gold-primary: #e5c158;
-    --color-gold-secondary: #c5a059;
-    --color-yellow-accent: #ffb300;
+    --color-gold-primary: #06B6D4;
+    --color-gold-secondary: #3B82F6;
+    --color-yellow-accent: #8B5CF6;
     
     /* Layout Tokens */
-    --sidebar-width: 260px;
-    --header-height: 70px;
-    --border-radius-lg: 20px;
-    --border-radius-md: 12px;
-    --border-radius-sm: 8px;
+    --sidebar-width: 270px;
+    --header-height: 72px;
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --border-radius-sm: 10px;
     
-    /* Shadow */
-    --shadow-premium: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    --border-glass: 1px solid rgba(229, 193, 88, 0.15);
-    --border-glass-green: 1px solid rgba(76, 175, 80, 0.2);
-    --border-glass-red: 1px solid rgba(239, 83, 80, 0.2);
+    /* Glass Effect Tokens (Frosted Glass 20-30px Blur, 1px Translucent Borders) */
+    --glass-blur: 28px;
+    --glass-overlay: rgba(255, 255, 255, 0.08);
+    --glass-overlay-hover: rgba(255, 255, 255, 0.14);
+    --shadow-premium: 0 16px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+    --shadow-glow-cyan: 0 0 25px rgba(6, 182, 212, 0.35);
+    --shadow-glow-purple: 0 0 25px rgba(139, 92, 246, 0.35);
+    --shadow-glow-emerald: 0 0 25px rgba(16, 185, 129, 0.35);
+    --border-glass: 1px solid rgba(255, 255, 255, 0.16);
+    --border-glass-green: 1px solid rgba(16, 185, 129, 0.35);
+    --border-glass-red: 1px solid rgba(244, 63, 94, 0.35);
+    --border-glass-cyan: 1px solid rgba(6, 182, 212, 0.35);
 }
 
 /* Global resets */
@@ -52,9 +68,15 @@
 }
 
 body {
-    background-color: var(--color-sage-bg);
-    color: var(--color-sage-primary-text);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--color-bg-navy);
+    background-image: 
+        radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(30, 58, 138, 0.4) 0%, transparent 55%),
+        radial-gradient(circle at 80% 85%, rgba(16, 185, 129, 0.18) 0%, transparent 40%);
+    background-attachment: fixed;
+    color: var(--color-white-text);
+    font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
     height: 100vh;
 }
@@ -239,38 +261,53 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 }
 
 .btn-primary {
-    background-color: var(--color-jade-green);
-    color: var(--color-warm-text);
+    background: linear-gradient(135deg, var(--color-cyan-primary) 0%, #3B82F6 100%);
+    color: var(--color-white-text);
     padding: 14px 28px;
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primary:hover:not(:disabled) {
-    background-color: var(--color-sage-green);
+    background: linear-gradient(135deg, #22D3EE 0%, #60A5FA 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 8px 30px rgba(6, 182, 212, 0.6);
 }
 
 .btn-primary:active:not(:disabled) {
     transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
 }
 
 .btn-primary:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
 .btn-secondary {
-    background-color: var(--color-obsidian-card);
-    color: var(--color-sage-primary-text);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    color: var(--color-white-text);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     padding: 12px 24px;
+    border-radius: var(--border-radius-md);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: var(--color-warm-text);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    color: var(--color-white-text);
 }
 
 .btn-large {
@@ -549,8 +586,10 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 /* Sidebar styling */
 .sidebar {
     width: var(--sidebar-width);
-    background-color: var(--color-obsidian-bg);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-right: 1px solid rgba(255, 255, 255, 0.14);
     display: flex;
     flex-direction: column;
     padding: 24px 16px;
@@ -567,12 +606,16 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
     width: 32px;
     height: 32px;
     margin-right: 10px;
+    filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.6));
 }
 
 .brand-text {
     font-size: 1.35rem;
     font-weight: 700;
     letter-spacing: 1px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .sidebar-nav {
@@ -583,7 +626,7 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 
 .nav-item {
     background: none;
-    border: none;
+    border: 1px solid transparent;
     color: var(--color-sage-secondary-text);
     padding: 12px 16px;
     border-radius: var(--border-radius-md);
@@ -594,13 +637,14 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
     align-items: center;
     gap: 12px;
     width: 100%;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: left;
 }
 
 .nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.03);
-    color: var(--color-warm-text);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-white-text);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .nav-icon {
@@ -610,17 +654,19 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 }
 
 .nav-item:hover .nav-icon {
-    transform: translateX(2px);
+    transform: translateX(3px);
 }
 
 .nav-item.active {
-    background-color: rgba(229, 193, 88, 0.08);
-    color: var(--color-gold-primary);
-    border: 1px solid rgba(229, 193, 88, 0.15);
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+    color: var(--color-cyan-primary);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
 }
 
 .nav-item.active .nav-icon {
-    color: var(--color-gold-primary);
+    color: var(--color-cyan-primary);
+    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.8));
 }
 
 /* Main content workspace */
@@ -629,17 +675,19 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: var(--color-sage-bg);
+    background: transparent;
 }
 
 .app-header {
     height: var(--header-height);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 32px;
-    background-color: var(--color-sage-bg);
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
 }
 
 .header-mobile-branding {
@@ -782,21 +830,30 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 
 /* Cards & Glassmorphism */
 .glass-card {
-    background: rgba(30, 36, 43, 0.6);
-    border: var(--border-glass);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: var(--border-radius-lg);
-    padding: 24px;
+    padding: 26px;
     margin-bottom: 24px;
-    box-shadow: var(--shadow-premium);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.45), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    border-radius: 24px 24px 0 0;
 }
 
 .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.45);
-    border-color: rgba(229, 193, 88, 0.3);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 24px 50px rgba(6, 182, 212, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+    border-color: rgba(6, 182, 212, 0.5);
 }
 
 .cursor-pointer {
@@ -805,7 +862,9 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 
 /* Tab 0 Welcome Card specific styling */
 .welcome-card {
-    background: linear-gradient(135deg, var(--color-obsidian-card) 0%, #1e2226 50%, var(--color-obsidian-card) 100%);
+    background: linear-gradient(135deg, rgba(30, 58, 138, 0.6) 0%, rgba(139, 92, 246, 0.35) 50%, rgba(6, 182, 212, 0.4) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(6, 182, 212, 0.25);
     position: relative;
     overflow: hidden;
 }
@@ -936,13 +995,15 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 }
 
 .stat-card.inflow {
-    border-color: rgba(76, 175, 80, 0.15);
-    background: linear-gradient(180deg, var(--color-obsidian-card) 0%, #091f14 100%);
+    border-color: rgba(16, 185, 129, 0.35);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(15, 23, 42, 0.6) 100%);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.25);
 }
 
 .stat-card.outflow {
-    border-color: rgba(239, 83, 80, 0.15);
-    background: linear-gradient(180deg, var(--color-obsidian-card) 0%, #1f090c 100%);
+    border-color: rgba(244, 63, 94, 0.35);
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.18) 0%, rgba(15, 23, 42, 0.6) 100%);
+    box-shadow: 0 8px 30px rgba(244, 63, 94, 0.25);
 }
 
 .stat-header {
@@ -1944,6 +2005,37 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
     gap: 12px;
 }
 
+/* Floating Action Button (FAB) */
+.fab-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 12px 35px rgba(6, 182, 212, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    z-index: 999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 16px 45px rgba(139, 92, 246, 0.7);
+}
+
+.fab-btn svg {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
 /* RESPONSIVE DESIGN (MOBILE & TABLET ADJUSTMENTS) */
 @media (max-width: 992px) {
     .calendar-layout, .advisor-layout, .vault-grid {
@@ -2215,6 +2307,14 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 
     <!-- MAIN APP CONTAINER -->
     <div id="app-container" class="layout-wrapper">
+        <!-- Floating Action Button (FAB) -->
+        <button class="fab-btn" id="fab-add-transaction" title="Add New Transaction">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+
         <!-- Navigation Sidebar (Desktop) / Navigation Header-Footer (Mobile) -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -3046,7 +3146,9 @@ class FinoraaxApplication {
         this.lockoutTimer = null;
         
         this.apiKey = "";
-        this.apiBase = "https://backend-h2ns.onrender.com";
+        this.apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:')
+            ? 'http://' + (window.location.hostname || 'localhost') + ':5000'
+            : 'https://backend-h2ns.onrender.com';
     }
 
     async init() {
@@ -4477,6 +4579,13 @@ class FinoraaxApplication {
             document.getElementById("tx-modal-error").innerText = "";
             document.getElementById("modal-add-tx").classList.add("active");
         };
+
+        const fabBtn = document.getElementById("fab-add-transaction");
+        if (fabBtn) {
+            fabBtn.onclick = () => {
+                document.getElementById("btn-quick-add-tx").click();
+            };
+        }
 
         document.getElementById("btn-quick-add-goal").onclick = () => {
             document.getElementById("goal-name").value = "";
