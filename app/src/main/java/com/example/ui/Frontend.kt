@@ -1306,92 +1306,183 @@ fun OverviewTab(
             }
         }
 
-        // Emergency Fund Tracker
+        // Creative Glassmorphism Emergency Fund Runway Widget
         val emergencyGoal = savingsGoals.find { it.isEmergencyFund } ?: SavingsGoalEntity(name = "Emergency Reserve Fund", targetAmount = 15000.0, currentAmount = 8400.0, isEmergencyFund = true)
+        val target = emergencyGoal.targetAmount
+        val current = emergencyGoal.currentAmount
+        val progress = if (target > 0) (current / target).toFloat().coerceIn(0f, 1f) else 0f
+        val monthlyOutflow = if (totalExpense > 0) totalExpense else 3000.0
+        val runwayMonths = (current / monthlyOutflow)
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
-            colors = CardDefaults.cardColors(containerColor = ObsidianCard),
-            shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(1.dp, GoldSecondary.copy(alpha = 0.15f))
+            colors = CardDefaults.cardColors(containerColor = GlassCardBackground),
+            shape = RoundedCornerShape(24.dp),
+            border = BorderStroke(1.dp, GlassCardBorder)
         ) {
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(modifier = Modifier.padding(20.dp)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.Top
                 ) {
-                    Column {
-                        Text("Active Protection: Emergency Runway", fontWeight = FontWeight.Bold, color = WarmText, fontSize = 14.sp)
-                        Text("Provides cushion for unexpected spikes", color = MutedText, fontSize = 11.sp)
+                    Column(modifier = Modifier.weight(1f)) {
+                        // Radar status pill badge
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(CyanPrimary.copy(alpha = 0.15f))
+                                .border(1.dp, CyanPrimary.copy(alpha = 0.4f), RoundedCornerShape(20.dp))
+                                .padding(horizontal = 10.dp, vertical = 4.dp)
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(7.dp)
+                                        .clip(CircleShape)
+                                        .background(EmeraldAccent)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "ACTIVE PROTECTION · ${(progress * 100).toInt()}% COVERED",
+                                    color = CyanPrimary,
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    letterSpacing = 0.5.sp
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("Emergency Runway Reserve", fontWeight = FontWeight.Bold, color = WhiteText, fontSize = 16.sp)
+                        Text("Liquidity cushion protecting against spending spikes", color = LightGrayText, fontSize = 11.sp)
                     }
                     IconButton(onClick = onAddGoalClick) {
-                        Icon(Icons.Default.Add, contentDescription = "New Goal", tint = GoldPrimary)
+                        Icon(Icons.Default.Add, contentDescription = "New Goal", tint = CyanPrimary, modifier = Modifier.size(24.dp))
                     }
                 }
-                Spacer(modifier = Modifier.height(12.dp))
-                val target = emergencyGoal.targetAmount
-                val current = emergencyGoal.currentAmount
-                val progress = if (target > 0) (current / target).toFloat().coerceIn(0f, 1f) else 0f
                 
-                // Custom Runway Progress Indicator drawing
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                // Custom Runway Glowing Progress Bar with Leading Orb
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(14.dp)
-                        .clip(RoundedCornerShape(7.dp))
-                        .background(Color(0xFF0C0E10))
+                        .height(20.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Color(0xFF0B1120))
+                        .border(1.dp, Color(0x22FFFFFF), RoundedCornerShape(10.dp))
                 ) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         val width = size.width
                         val height = size.height
                         val progressWidth = width * progress
                         
-                        // 1. Draw runway dashes down the center
-                        val dashWidth = 8.dp.toPx()
-                        val dashGap = 6.dp.toPx()
+                        // 1. Runway dashes down center
+                        val dashWidth = 6.dp.toPx()
+                        val dashGap = 5.dp.toPx()
                         var currentX = 0f
                         while (currentX < width) {
                             drawRect(
-                                color = Color(0x22FFFFFF),
+                                color = Color(0x33FFFFFF),
                                 topLeft = androidx.compose.ui.geometry.Offset(currentX, height / 2f - 1.dp.toPx()),
                                 size = androidx.compose.ui.geometry.Size(dashWidth, 2.dp.toPx())
                             )
                             currentX += dashWidth + dashGap
                         }
                         
-                        // 2. Draw metallic gold fill progress
+                        // 2. Cyan to Purple glowing progress bar
                         if (progressWidth > 0f) {
                             drawRoundRect(
                                 brush = Brush.horizontalGradient(
-                                    colors = listOf(GoldSecondary, GoldPrimary)
+                                    colors = listOf(CyanPrimary, Color(0xFF3B82F6), SoftPurpleHighlight)
                                 ),
                                 size = androidx.compose.ui.geometry.Size(progressWidth, height),
-                                cornerRadius = androidx.compose.ui.geometry.CornerRadius(7.dp.toPx(), 7.dp.toPx())
+                                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10.dp.toPx(), 10.dp.toPx())
                             )
                             
-                            // 3. Draw dark asphalt contrast dashes on filled part
-                            var filledX = 0f
-                            while (filledX < progressWidth) {
-                                drawRect(
-                                    color = Color(0xFF0C0E10),
-                                    topLeft = androidx.compose.ui.geometry.Offset(filledX, height / 2f - 1.dp.toPx()),
-                                    size = androidx.compose.ui.geometry.Size(dashWidth, 2.dp.toPx())
-                                )
-                                filledX += dashWidth + dashGap
-                            }
+                            // 3. Leading Orb Indicator at progress tip
+                            drawCircle(
+                                color = Color.White,
+                                radius = 7.dp.toPx(),
+                                center = androidx.compose.ui.geometry.Offset(progressWidth, height / 2f)
+                            )
+                            drawCircle(
+                                color = CyanPrimary,
+                                radius = 5.dp.toPx(),
+                                center = androidx.compose.ui.geometry.Offset(progressWidth, height / 2f)
+                            )
                         }
                     }
                 }
                 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(6.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("₹${"%,.0f".format(current)} cushion set", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = WarmText)
-                    Text("Goal ₹${"%,.0f".format(target)} (${(progress * 100).toInt()}%)", fontSize = 12.sp, color = MutedText)
+                    Text("0M", fontSize = 10.sp, color = SlateMutedText, fontWeight = FontWeight.Bold)
+                    Text("1 Month", fontSize = 10.sp, color = SlateMutedText, fontWeight = FontWeight.Bold)
+                    Text("3 Months", fontSize = 10.sp, color = SlateMutedText, fontWeight = FontWeight.Bold)
+                    Text("6 Months (Goal)", fontSize = 10.sp, color = SlateMutedText, fontWeight = FontWeight.Bold)
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                // 3-Column Glass Micro-Metrics Grid
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    // Cushion Set Pill
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(14.dp))
+                            .background(Color(0x12FFFFFF))
+                            .border(1.dp, Color(0x22FFFFFF), RoundedCornerShape(14.dp))
+                            .padding(vertical = 10.dp, horizontal = 8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("CUSHION SET", fontSize = 9.sp, color = LightGrayText, fontWeight = FontWeight.SemiBold, letterSpacing = 0.5.sp)
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text("₹${"%,.0f".format(current)}", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EmeraldAccent)
+                        }
+                    }
+                    // Runway Pill
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(14.dp))
+                            .background(Color(0x12FFFFFF))
+                            .border(1.dp, Color(0x22FFFFFF), RoundedCornerShape(14.dp))
+                            .padding(vertical = 10.dp, horizontal = 8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("RUNWAY", fontSize = 9.sp, color = LightGrayText, fontWeight = FontWeight.SemiBold, letterSpacing = 0.5.sp)
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text("${"%.1f".format(runwayMonths)} Months", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = CyanPrimary)
+                        }
+                    }
+                    // Goal Target Pill
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(14.dp))
+                            .background(Color(0x12FFFFFF))
+                            .border(1.dp, Color(0x22FFFFFF), RoundedCornerShape(14.dp))
+                            .padding(vertical = 10.dp, horizontal = 8.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text("GOAL TARGET", fontSize = 9.sp, color = LightGrayText, fontWeight = FontWeight.SemiBold, letterSpacing = 0.5.sp)
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text("₹${"%,.0f".format(target)}", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = WhiteText)
+                        }
+                    }
                 }
             }
         }

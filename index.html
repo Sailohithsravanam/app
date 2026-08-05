@@ -1079,22 +1079,56 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
     margin-bottom: 0;
 }
 
-/* Emergency fund custom runway progress bar */
+/* Creative Glassmorphism Emergency Runway Widget */
+.emergency-tracker-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(30, 58, 138, 0.4) 50%, rgba(139, 92, 246, 0.2) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.5), 0 0 35px rgba(6, 182, 212, 0.2);
+    border-radius: var(--border-radius-lg);
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+}
+
 .emergency-tracker-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+}
+
+.runway-radar-badge {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 16px;
+    gap: 8px;
+    background: rgba(6, 182, 212, 0.15);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-cyan-primary);
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+}
+
+.radar-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-emerald-accent);
+    box-shadow: 0 0 10px var(--color-emerald-accent);
+    animation: pulse 1.8s infinite ease-in-out;
 }
 
 .runway-container {
     width: 100%;
-    height: 16px;
-    background-color: var(--color-obsidian-bg);
-    border-radius: 8px;
+    height: 22px;
+    background: rgba(11, 17, 32, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
     position: relative;
-    overflow: hidden;
-    margin-bottom: 12px;
+    overflow: visible;
+    margin: 20px 0 8px 0;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .runway-track-ticks {
@@ -1107,25 +1141,38 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
     align-items: center;
     justify-content: space-around;
     pointer-events: none;
+    z-index: 1;
 }
 
-/* Dash slots styling */
 .runway-dash {
-    width: 8px;
+    width: 6px;
     height: 2px;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.18);
 }
 
 .runway-fill-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--color-gold-secondary), var(--color-gold-primary));
+    background: linear-gradient(90deg, #06B6D4 0%, #3B82F6 50%, #8B5CF6 100%);
     width: 0%;
-    border-radius: 8px;
+    border-radius: 14px;
+    position: relative;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+    z-index: 2;
+}
+
+.runway-fill-bar::after {
+    content: '';
     position: absolute;
-    left: 0;
-    top: 0;
-    overflow: hidden;
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 0 15px #06B6D4, 0 0 30px #8B5CF6;
+    border: 2px solid #06B6D4;
 }
 
 .runway-fill-ticks {
@@ -1137,14 +1184,55 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
 }
 
 .runway-fill-dash {
-    width: 8px;
+    width: 6px;
     height: 2px;
-    background-color: var(--color-obsidian-bg);
+    background-color: rgba(11, 17, 32, 0.5);
 }
 
-.runway-stats {
+.runway-milestone-ticks {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 0 4px;
+    font-size: 0.72rem;
+    color: var(--color-light-gray-text);
+}
+
+.runway-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.runway-metric-pill {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    border-radius: 16px;
+    padding: 12px 14px;
+    text-align: center;
+    transition: all 0.25s ease;
+}
+
+.runway-metric-pill:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(6, 182, 212, 0.4);
+    transform: translateY(-2px);
+}
+
+.runway-metric-label {
+    font-size: 0.72rem;
+    color: var(--color-light-gray-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.runway-metric-val {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFFFFF;
 }
 
 /* Quick Actions Box */
@@ -2502,31 +2590,52 @@ h1, h2, h3, h4, .brand-text, .splash-title, .welcome-title {
                         </div>
                     </div>
 
-                    <!-- Emergency Fund Tracker -->
+                    <!-- Creative Glassmorphism Emergency Fund Runway Widget -->
                     <div class="glass-card emergency-tracker-card">
                         <div class="emergency-tracker-header">
                             <div>
-                                <h3 class="card-title text-warm font-bold">Active Protection: Emergency Runway</h3>
-                                <p class="card-subtitle text-muted font-sm">Provides cushion for unexpected spikes</p>
+                                <div class="flex-center gap-8 margin-bottom-8">
+                                    <span class="runway-radar-badge">
+                                        <span class="radar-dot"></span>
+                                        <span id="runway-radar-text">ACTIVE PROTECTION</span>
+                                    </span>
+                                </div>
+                                <h3 class="card-title text-warm font-bold" style="font-size: 1.25rem;">Emergency Runway Reserve</h3>
+                                <p class="card-subtitle text-muted font-sm">Liquidity cushion protecting against unexpected spending spikes</p>
                             </div>
                             <button class="btn-icon text-gold" id="btn-add-goal-shortcut" title="New Goal">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                             </button>
                         </div>
 
-                        <!-- Runway Progress Track -->
+                        <!-- Runway Glowing Progress Track -->
                         <div class="runway-container">
-                            <div class="runway-track-ticks" id="runway-dashes">
-                                <!-- Dashes drawn dynamically/CSS -->
-                            </div>
+                            <div class="runway-track-ticks" id="runway-dashes"></div>
                             <div class="runway-fill-bar" id="runway-progress-fill">
                                 <div class="runway-fill-ticks" id="runway-fill-dashes"></div>
                             </div>
                         </div>
+                        <div class="runway-milestone-ticks font-bold">
+                            <span>0M</span>
+                            <span>1 Month</span>
+                            <span>3 Months</span>
+                            <span>6 Months (Goal)</span>
+                        </div>
 
-                        <div class="runway-stats font-bold font-sm">
-                            <span class="text-warm" id="emergency-cushion-set">₹0 cushion set</span>
-                            <span class="text-muted" id="emergency-goal-text">Goal ₹0 (0%)</span>
+                        <!-- Interactive Micro-Metrics Grid -->
+                        <div class="runway-metrics-grid">
+                            <div class="runway-metric-pill">
+                                <div class="runway-metric-label">Cushion Set</div>
+                                <div class="runway-metric-val text-green" id="emergency-cushion-set">₹8,400.00</div>
+                            </div>
+                            <div class="runway-metric-pill">
+                                <div class="runway-metric-label">Runway</div>
+                                <div class="runway-metric-val text-gold" id="emergency-runway-months">2.8 Months</div>
+                            </div>
+                            <div class="runway-metric-pill">
+                                <div class="runway-metric-label">Goal Target</div>
+                                <div class="runway-metric-val text-warm" id="emergency-goal-text">₹15,000 (56%)</div>
+                            </div>
                         </div>
                     </div>
 
@@ -3440,26 +3549,40 @@ class FinoraaxApplication {
         const target = emergencyGoal.targetAmount;
         const current = emergencyGoal.currentAmount;
         const pct = target > 0 ? Math.min(100, Math.round((current / target) * 100)) : 0;
+        const monthlyOutflow = outflow > 0 ? outflow : 3000.0;
+        const runwayMonths = (current / monthlyOutflow).toFixed(1);
 
-        document.getElementById("emergency-cushion-set").innerText = `₹${this.formatCurrency(current)} cushion set`;
-        document.getElementById("emergency-goal-text").innerText = `Goal ₹${this.formatCurrency(target)} (${pct}%)`;
+        const cushionEl = document.getElementById("emergency-cushion-set");
+        if (cushionEl) cushionEl.innerText = `₹${this.formatCurrency(current)}`;
+
+        const runwayMonthsEl = document.getElementById("emergency-runway-months");
+        if (runwayMonthsEl) runwayMonthsEl.innerText = `${runwayMonths} Months`;
+
+        const goalTextEl = document.getElementById("emergency-goal-text");
+        if (goalTextEl) goalTextEl.innerText = `₹${this.formatCurrency(target)} (${pct}%)`;
+
+        const radarTextEl = document.getElementById("runway-radar-text");
+        if (radarTextEl) radarTextEl.innerText = `ACTIVE PROTECTION · ${pct}% COVERED`;
 
         // Render runway dashes in DOM
         const runwayDashes = document.getElementById("runway-dashes");
         const runwayFillDashes = document.getElementById("runway-fill-dashes");
-        runwayDashes.innerHTML = "";
-        runwayFillDashes.innerHTML = "";
-        for (let i = 0; i < 24; i++) {
-            const dash = document.createElement("div");
-            dash.className = "runway-dash";
-            runwayDashes.appendChild(dash);
+        if (runwayDashes && runwayFillDashes) {
+            runwayDashes.innerHTML = "";
+            runwayFillDashes.innerHTML = "";
+            for (let i = 0; i < 20; i++) {
+                const dash = document.createElement("div");
+                dash.className = "runway-dash";
+                runwayDashes.appendChild(dash);
 
-            const fillDash = document.createElement("div");
-            fillDash.className = "runway-fill-dash";
-            runwayFillDashes.appendChild(fillDash);
+                const fillDash = document.createElement("div");
+                fillDash.className = "runway-fill-dash";
+                runwayFillDashes.appendChild(fillDash);
+            }
         }
         
-        document.getElementById("runway-progress-fill").style.width = `${pct}%`;
+        const fillBar = document.getElementById("runway-progress-fill");
+        if (fillBar) fillBar.style.width = `${pct}%`;
 
         // Render Recent entries
         const recentList = document.getElementById("recent-ledger-list");
