@@ -10,7 +10,7 @@ from flask import Flask, request, jsonify, g, Response
 app = Flask(__name__)
 
 # Basic configuration
-DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "finoraax.db")
+DB_FILE = ":memory:"
 ENV_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
 
 # Helper to format row dictionary to camelCase and cast booleans
@@ -331,15 +331,6 @@ def init_db():
                 timestamp BIGINT NOT NULL
             );
 
-            CREATE OR REPLACE VIEW expenses AS 
-            SELECT id, user_id, category, amount, date, note, is_recurring, is_smart_categorized 
-            FROM transactions 
-            WHERE type = 'EXPENSE';
-
-            CREATE OR REPLACE VIEW income AS 
-            SELECT id, user_id, category, amount, date, note, is_recurring, is_smart_categorized 
-            FROM transactions 
-            WHERE type = 'INCOME';
             """)
             conn.commit()
             cursor.close()
@@ -504,23 +495,6 @@ def init_db():
         )
         """)
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_chat_history_user ON chat_history(user_id);")
-
-        cursor.execute("DROP VIEW IF EXISTS expenses;")
-        cursor.execute("""
-        CREATE VIEW expenses AS 
-        SELECT id, user_id, category, amount, date, note, is_recurring, is_smart_categorized 
-        FROM transactions 
-        WHERE type = 'EXPENSE';
-        """)
-        
-        cursor.execute("DROP VIEW IF EXISTS income;")
-        cursor.execute("""
-        CREATE VIEW income AS 
-        SELECT id, user_id, category, amount, date, note, is_recurring, is_smart_categorized 
-        FROM transactions 
-        WHERE type = 'INCOME';
-        """)
-        
         conn.commit()
 
 init_db()
@@ -630,10 +604,10 @@ def build_financial_context(user_id):
     user = cursor.fetchone()
     username = user["name"] if user else "User"
     
-    cursor.execute("SELECT category, amount, date, note FROM expenses WHERE user_id = ? ORDER BY date DESC LIMIT 15", (user_id,))
+    cursor.execute("SELECT category, amount, date, note FROM transactions WHERE user_id = ? AND type = 'EXPENSE' ORDER BY date DESC LIMIT 15", (user_id,))
     expenses = cursor.fetchall()
     
-    cursor.execute("SELECT category, amount, date, note FROM income WHERE user_id = ? ORDER BY date DESC LIMIT 15", (user_id,))
+    cursor.execute("SELECT category, amount, date, note FROM transactions WHERE user_id = ? AND type = 'INCOME' ORDER BY date DESC LIMIT 15", (user_id,))
     incomes = cursor.fetchall()
     
     cursor.execute("SELECT category, limit_amount, spent_amount, month_year FROM budgets WHERE user_id = ?", (user_id,))
