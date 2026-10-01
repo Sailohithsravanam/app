@@ -1,0 +1,8 @@
+.git
+.gradle
+build
+app/build
+.idea
+__pycache__
+*.pyc
+selenium_tests
